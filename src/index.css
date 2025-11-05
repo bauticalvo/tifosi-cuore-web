@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@theme{
+  --font-primary: 'Bebas Neue', sans-serif;
+
+ --color-primary: #275559;
+ --color-background: #fafaf8;
+ --color-secondary: #befcae;
+ --color-tertiary: #f0efd6;
+ --color-tertiary-alt: #f1efeb;
+ --color-light: #fafaf8;
+ --color-accent: #F5893B;    /* botones, llamadas a la acción */
+ --color-highlight: #BEFCAE; /* hover, detalles */
+ --color-text: #275559;
+ --color-dark-text: #1A202C;
+  --color-bauti: #F0EFD6;
+
+  --shadow-primary: 10px 10px 100px rgba(0, 0, 0, 0.7);
+
+}
+
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE y Edge */
+    scrollbar-width: none;    /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;            /* Chrome, Safari, Opera */
+  }
+}
+
+
+
+
+
+button {
+  cursor: pointer;
+}
