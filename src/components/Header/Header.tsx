@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import FilterBar from './FilterBar'
+import { useNavigate } from 'react-router'
 export const Header = () => {
   const logoSection = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +35,7 @@ export const Header = () => {
   return (
     <div className="fixed top-0 z-100 text-white bg-primary flex flex-col justify-between h-auto items-center w-screen text-base font-primary">
       <section ref={logoSection} className="w-full h-[7vh] py-1 px-8">
-          <img src="/logos/logo_acortado.svg" alt="tifosi_logo" className="h-full w-auto" />
+          <img onClick={() => navigate("/")} src="/logos/logo_acortado.svg" alt="tifosi_logo" className="h-full w-auto" />
       </section>
       <section className="w-full h-[4vh] border-t border-light">
         <FilterBar />

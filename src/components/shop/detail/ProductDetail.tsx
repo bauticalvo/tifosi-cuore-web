@@ -1,237 +1,356 @@
-'use client'
+import React, { useState } from 'react'
+import { useParams, Link } from 'react-router'
+import { useProductBySlug } from '@/hooks/useGetProducts'
+import type { ProductVariant } from '@/types/api/products'
+import { ImageModal } from './ImageModal'
+import { LoadingSqueleton } from './LoadingSqueleton'
+import { RelatedProducts } from './RelatedProducts'
 
-import { useState } from 'react'
-import { Product } from '@/payload-types'
-
-interface ProductDetailProps {
-  product: Product
+export const ProductDetail: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>()
+  const { data: product, isLoading, error } = useProductBySlug(slug || '')
+  const [selectedSize, setSelectedSize] = useState<string>('')
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null)
+  const [quantity, setQuantity] = useState<number>(1)
+  const [selectedImage, setSelectedImage] = useState<number>(0)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+// Loading state
+if (isLoading) {
+  return (
+    <LoadingSqueleton />
+  )
 }
 
-export default function ProductDetail({ product }: ProductDetailProps) {
-  const [selectedSize, setSelectedSize] = useState<string>('')
-  const [quantity, setQuantity] = useState(1)
+  if (error) {
+    return (
+      <div className="text-red-500 text-center py-8">
+        <p>Error: {(error as Error).message}</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary"
+        >
+          Reintentar
+        </button>
+      </div>
+    )
+  }
 
-  // Calcular precio con descuento
-  const discountedPrice = product.discount
-    ? product.price * (1 - product.discount / 100)
-    : product.price
+  if (!product) {
+    return (
+      <div className="text-center py-8">
+        <p>Producto no encontrado</p>
+        <Link 
+          to="/products" 
+          className="mt-4 inline-block px-4 py-2 bg-primary text-white rounded hover:bg-primary"
+        >
+          Volver a productos
+        </Link>
+      </div>
+    )
+  }
 
-  // Obtener imagen principal
-  const mainImage =
-    product.images?.[0] && typeof product.images[0] !== 'string' ? product.images[0] : null
-
-  // Obtener equipo
-  const team = product.team && typeof product.team !== 'string' ? product.team : null
-  const league = product.league && typeof product.league !== 'string' ? product.league : null
-  const country = product.country && typeof product.country !== 'string' ? product.country : null
-
-  // Talles disponibles
-  const availableSizes = product.variants?.map((variant) => variant.size) || []
+  const handleSizeSelect = (size: string) => {
+    setSelectedSize(size)
+    const variant = product.variants.find(v => v.size === size)
+    setSelectedVariant(variant || null)
+    setQuantity(1)
+  }
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      alert('Por favor selecciona un talle')
+      alert('Por favor selecciona una talla')
       return
     }
-    // Aquí iría la lógica para agregar al carrito
-    console.log('Agregar al carrito:', { product, size: selectedSize, quantity })
+
+    if (selectedVariant && selectedVariant.stock === 0) {
+      alert('Esta talla no está disponible')
+      return
+    }
+
+    console.log('Agregar al carrito:', {
+      product: product._id,
+      size: selectedSize,
+      variant: selectedVariant,
+      quantity
+    })
+  }
+
+  const handleQuantityChange = (newQuantity: number) => {
+    const maxQuantity = selectedVariant ? selectedVariant.stock : 1
+    if (newQuantity >= 1 && newQuantity <= maxQuantity) {
+      setQuantity(newQuantity)
+    }
+  }
+
+  const getDiscountedPrice = () => {
+    if (product.discount && product.discount > 0) {
+      return product.price * (1 - product.discount / 100)
+    }
+    return product.price
+  }
+
+  const discountedPrice = getDiscountedPrice()
+  const hasDiscount = product.discount && product.discount > 0
+
+  const getCategoryName = (category: string) => {
+    const categories = {
+      camiseta: 'Camiseta',
+      short: 'Short',
+      buzo: 'Buzo'
+    }
+    return categories[category as keyof typeof categories] || category
+  }
+
+  const getSizeLabel = (size: string) => {
+    const sizes = {
+      xs: 'XS',
+      s: 'S',
+      m: 'M',
+      l: 'L',
+      xl: 'XL'
+    }
+    return sizes[size as keyof typeof sizes] || size.toUpperCase()
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 mt-[10vh]">
+    <div className="max-w-6xl mx-auto px-4 py-8 mt-[10vh]">
       {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="py-4 text-sm text-gray-500">
-            <a href="/" className="hover:text-gray-700">
-              Home
-            </a>
-            <span className="mx-2">/</span>
-            <a href="/products" className="hover:text-gray-700">
-              Price Drops
-            </a>
-            <span className="mx-2">/</span>
-            <span className="text-gray-900">{product.name}</span>
-          </nav>
-        </div>
-      </div>
+      <nav className="text-sm text-gray-500 mb-6">
+        <Link to="/" className="hover:text-gray-700">Inicio</Link>
+        <span className="mx-2">/</span>
+        <Link to="/products" className="hover:text-gray-700">Productos</Link>
+        <span className="mx-2">/</span>
+        <Link to={`/products?category=${product.category}`} className="hover:text-gray-700">
+          {getCategoryName(product.category)}
+        </Link>
+        <span className="mx-2">/</span>
+        <span className="text-gray-900 font-medium">{product.name}</span>
+      </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Columna de Imagen */}
-          <div>
-            {mainImage && (
-              <div className="bg-white rounded-lg overflow-hidden">
-                <img
-                  src={mainImage.url || ''}
-                  alt={mainImage.alt || product.name}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Imágenes del producto */}
+        <div className="space-y-4">
+          {/* Imagen principal */}
+          <div 
+            className="bg-gray-100 rounded-lg aspect-[3/3] flex items-center justify-center overflow-hidden cursor-zoom-in"
+            onClick={() => setIsModalOpen(true)}
+          >
+            {product.images && product.images.length > 0 ? (
+              <img 
+                src={(product.images[selectedImage] as any).secure_url || (product.images[0] as any).url} 
+                alt={product.name}
+                className="w-full h-full object-contain"
+              />
+            ) : (
+              <span className="text-gray-400">Imagen no disponible</span>
             )}
           </div>
-
-          {/* Columna de Información */}
-          <div className="space-y-6">
-            {/* Marca y Equipo */}
-            <div>
-              <div className="flex items-center space-x-4 mb-2">
-                <span className="text-sm font-medium text-gray-600">Puma</span>
-                {team && <span className="text-sm font-medium text-gray-600">{team.name}</span>}
-              </div>
-
-              {/* Nombre del Producto */}
-              <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
+          
+          {/* Miniaturas */}
+          {product.images && product.images.length > 1 && (
+            <div className="grid grid-cols-4 gap-2">
+              {product.images.map((image, index) => {
+                const imageUrl = (image as any).secure_url || (image as any).url;
+                return (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(index)}
+                    className={`bg-gray-100 rounded aspect-square overflow-hidden border-2 ${
+                      selectedImage === index ? 'border-primary' : 'border-transparent'
+                    }`}
+                  >
+                    <img 
+                      src={imageUrl} 
+                      alt={`${product.name} ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                );
+              })}
             </div>
+          )}
+        </div>
 
-            {/* Precio */}
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl font-bold text-gray-900">
-                  ${discountedPrice.toFixed(2)}
-                </span>
-                {product.discount && (
+        {/* Modal de imagen - agrega esto al final del componente */}
+        {product.images && product.images.length > 0 && (
+          <ImageModal
+            images={product.images}
+            initialIndex={selectedImage}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            productName={product.name}
+          />
+        )}
+
+        {/* Información del producto */}
+        <div className="space-y-6">
+          {/* Equipo y Liga */}
+          {(product.team || product.league) && (
+            <div className="text-sm font-semibold text-gray-600 uppercase">
+              {product.team && (product.team as any).name}
+              {product.team && product.league && ' • '}
+              {product.league && (product.league as any).name}
+            </div>
+          )}
+
+          {/* Nombre del producto */}
+          <h1 className="text-3xl font-bold text-gray-900">
+            {product.name}
+          </h1>
+
+          {/* Descripción */}
+          {product.description && (
+            <div className="border-t border-gray-200 pt-4">
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Descripción</h3>
+              <p className="text-gray-600 leading-relaxed">{product.description}</p>
+            </div>
+          )}
+          {/* Temporada */}
+          <div className="text-sm text-gray-600">
+            Temporada {product.season.from}-{product.season.to}
+          </div>
+
+          {/* Precio */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl font-bold text-gray-900">
+                ${discountedPrice.toFixed(2)}
+              </span>
+              {hasDiscount && (
+                <>
                   <span className="text-lg text-gray-500 line-through">
                     ${product.price.toFixed(2)}
                   </span>
-                )}
+                  <span className="bg-red-500 text-white px-2 py-1 text-sm rounded">
+                    -{product.discount}%
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Colores */}
+          {product.color && product.color.length > 0 && (
+            <div className="space-y-3">
+              <label className="block text-sm font-medium text-gray-700">
+                Color
+              </label>
+              <div className="flex items-center gap-2">
+                {product.color.map((colorObj) => {
+                  const color = colorObj as any
+                  return (
+                    <div
+                      key={color._id || color}
+                      className="w-8 h-8 rounded-full border border-black/20"
+                      style={{ 
+                        backgroundColor: color.hex_code || '#ccc',
+                      }}
+                      title={color.name || 'Color'}
+                    />
+                  )
+                })}
               </div>
-              {product.discount && (
-                <span className="bg-green-100 text-green-800 text-sm font-medium px-2 py-1 rounded">
-                  Save {product.discount}%
+            </div>
+          )}
+
+          {/* Tallas */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-sm font-medium text-gray-700">
+                Seleccionar Talla
+              </label>
+              {selectedVariant && (
+                <span className="text-sm text-gray-500">
+                  {selectedVariant.stock} disponibles
                 </span>
               )}
             </div>
+            <div className="flex flex-wrap gap-2">
+              {product.variants.map((variant) => (
+                <button
+                  key={variant.size}
+                  onClick={() => handleSizeSelect(variant.size)}
+                  disabled={variant.stock === 0}
+                  className={`px-4 py-2 border rounded-md text-sm font-medium transition-colors ${
+                    selectedSize === variant.size
+                      ? 'border-primary bg-blue-50 text-primary'
+                      : variant.stock === 0
+                      ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
+                      : 'border-gray-300 text-gray-700 hover:border-gray-400'
+                  }`}
+                >
+                  {getSizeLabel(variant.size)}
+                </button>
+              ))}
+            </div>
+          </div>
 
-            {/* Selector de Talle */}
-            <div>
-              <h3 className="text-sm font-medium text-gray-900 mb-3">Select Size</h3>
-              <div className="flex space-x-2">
-                {availableSizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`px-4 py-2 border rounded-md text-sm font-medium ${
-                      selectedSize === size
-                        ? 'bg-blue-600 text-white border-blue-600'
-                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                    }`}
-                  >
-                    {size.toUpperCase()}
-                  </button>
-                ))}
+          {/* Cantidad y Botón de compra */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <label className="text-sm font-medium text-gray-700">Cantidad</label>
+              <div className="flex items-center border border-gray-300 rounded">
+                <button
+                  onClick={() => handleQuantityChange(quantity - 1)}
+                  className="px-3 py-2 hover:bg-gray-100 transition-colors disabled:text-gray-400"
+                  disabled={quantity <= 1}
+                >
+                  -
+                </button>
+                <span className="px-4 py-2 min-w-12 text-center">{quantity}</span>
+                <button
+                  onClick={() => handleQuantityChange(quantity + 1)}
+                  className="px-3 py-2 hover:bg-gray-100 transition-colors disabled:text-gray-400"
+                  disabled={selectedVariant ? quantity >= selectedVariant.stock : false}
+                >
+                  +
+                </button>
               </div>
             </div>
 
-            {/* Botones de Acción */}
-            <div className="flex space-x-4">
-              <button
-                onClick={handleAddToCart}
-                className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-md font-medium hover:bg-blue-700 transition-colors"
-              >
-                ADD TO CART
+            <button
+              onClick={handleAddToCart}
+              disabled={!selectedSize || (selectedVariant && selectedVariant.stock === 0)}
+              className="w-full bg-primary text-white py-3 px-6 rounded-md font-medium hover:bg-primary disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            >
+              {!selectedSize 
+                ? 'SELECCIONA UNA TALLA' 
+                : selectedVariant && selectedVariant.stock === 0
+                ? 'SIN STOCK'
+                : 'AGREGAR AL CARRITO'
+              }
+            </button>
+
+            {/* Información de envío */}
+            {/* <div className="text-sm text-center">
+              ENVÍO GRATIS en compras superiores a $50
+            </div> */}
+          </div>
+
+
+          {/* Información adicional */}
+          <div className="border-t border-gray-200 pt-4">
+            <div className="flex gap-8 text-sm">
+              <button className="text-gray-600 hover:text-gray-900 font-medium">
+                INFO & TALLAS
               </button>
-            </div>
-
-            {/* Info de Envío */}
-            <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
-              <p className="text-sm text-blue-800">
-                ORDER NOW and receive from <strong>3rd Nov</strong>
-              </p>
-            </div>
-
-            {/* Información del Producto */}
-            <div className="border-t pt-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">INFO & SIZING</h3>
-
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="text-gray-600">SKU:</span>
-                  <span className="ml-2 text-gray-900">{product.id}</span>
-                </div>
-                <div>
-                  <span className="text-gray-600">Condition:</span>
-                  <span className="ml-2 text-gray-900">Brand New</span>
-                </div>
-                {country && (
-                  <div>
-                    <span className="text-gray-600">Country:</span>
-                    <span className="ml-2 text-gray-900">{country.name}</span>
-                  </div>
-                )}
-                {league && (
-                  <div>
-                    <span className="text-gray-600">League:</span>
-                    <span className="ml-2 text-gray-900">{league.name}</span>
-                  </div>
-                )}
-                {team && (
-                  <div>
-                    <span className="text-gray-600">Nickname:</span>
-                    <span className="ml-2 text-gray-900">The Citizens</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Guía de Talles */}
-              <div className="mt-6">
-                <h4 className="font-medium text-gray-900 mb-3">Size guide</h4>
-                <div className="overflow-x-auto">
-                  <table className="min-w-full border-collapse border border-gray-300">
-                    <thead>
-                      <tr className="bg-gray-100">
-                        <th className="border border-gray-300 px-4 py-2 text-left">SIZE</th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">WIDTH - cm</th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">LENGTH - cm</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="border border-gray-300 px-4 py-2">XS</td>
-                        <td className="border border-gray-300 px-4 py-2">47</td>
-                        <td className="border border-gray-300 px-4 py-2">72</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 px-4 py-2">S</td>
-                        <td className="border border-gray-300 px-4 py-2">51</td>
-                        <td className="border border-gray-300 px-4 py-2">74</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 px-4 py-2">L</td>
-                        <td className="border border-gray-300 px-4 py-2">59</td>
-                        <td className="border border-gray-300 px-4 py-2">76</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 px-4 py-2">XL</td>
-                        <td className="border border-gray-300 px-4 py-2">63</td>
-                        <td className="border border-gray-300 px-4 py-2">79</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* Selector de Cantidad */}
-              <div className="mt-6">
-                <h4 className="font-medium text-gray-900 mb-3">Select Quantity</h4>
-                <div className="flex items-center space-x-4">
-                  <select
-                    value={quantity}
-                    onChange={(e) => setQuantity(Number(e.target.value))}
-                    className="border border-gray-300 rounded px-3 py-2"
-                  >
-                    {[1, 2, 3, 4, 5].map((num) => (
-                      <option key={num} value={num}>
-                        {num}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+              <button className="text-gray-600 hover:text-gray-900 font-medium">
+                ENVÍO
+              </button>
+              <button className="text-gray-600 hover:text-gray-900 font-medium">
+                CUIDADO DEL PRODUCTO
+              </button>
             </div>
           </div>
         </div>
       </div>
+      {product && (
+        <RelatedProducts 
+          product={product}
+          title="Productos relacionados"
+          limit={5}
+        />
+      )}
     </div>
   )
 }
