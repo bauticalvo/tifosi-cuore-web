@@ -5,7 +5,7 @@ import { useProducts } from '@/hooks/useProducts'
 
 export const Section4 = () => {
 
-const { data:products, isPending, isError, error } = useProducts({ category: '' })
+const { data:products, isPending, isError, error } = useProducts({ category: 'buzo' })
 
   if (isPending)
     return (

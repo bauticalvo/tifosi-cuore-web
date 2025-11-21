@@ -52,12 +52,12 @@ export const HeroSectionBloke = () => {
   return (
     <div
       className="bg-primary relative h-[40vh] md:h-[60vh]  xl:h-[800px] 2xl:h-[70vh] w-full flex items-center justify-center
-     bg-[url('/hero-bg.png')] bg-no-repeat bg-top bg-cover overflow-hidden"
+     bg-[url('/images/blokecore/hero-bg.png')] bg-no-repeat bg-top bg-cover overflow-hidden"
     >
       {/* Imagen con parallax más lento */}
       <img
         style={{ opacity, transition: 'opacity 0.3s ease' }}
-        src="/bloke_core.png"
+        src="/images/blokecore/bloke_core.png"
         alt="bloke_core"
         className="h-full object-cover object-top w-full z-20 absolute inset-0 shadow-primary"
       />

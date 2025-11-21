@@ -11,7 +11,7 @@ export const Storytelling = () => {
         </div>
       </section>
       <section className="w-full lg:w-1/2 lg:h-full ">
-        <img src="/milanstreet.jpeg" alt="story" className="h-full w-full" />
+        <img src="/images/blokecore/milanstreet.jpeg" alt="story" className="h-full w-full" />
       </section>
     </div>
   )

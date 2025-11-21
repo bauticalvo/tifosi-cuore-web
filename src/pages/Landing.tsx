@@ -1,12 +1,7 @@
-'use client'
-
-import { HeroSection } from './HeroSection'
-import { CategorySection } from './CategorySection'
-
-import { ShopByVersion } from './ShopByVersion'
-import { Storytelling } from './Storytelling'
-import { HeroCarousel } from '../Custom/HeroCarousel'
-import { Section4 } from './Section4'
+import { HeroSection } from '../components/Landing/HeroSection'
+import { CategorySection } from '../components/Landing/CategorySection'
+import { ShopByVersion } from '../components/Landing/ShopByVersion'
+import { Section4 } from '../components/Landing/Section4'
 
 export const Landing = () => {
   return (
