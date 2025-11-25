@@ -6,10 +6,12 @@
 
  --color-primary: #275559;
  --color-background: #fafaf8;
+ --color-bg-images: rgba(250,250,248, 0.8);
  --color-secondary: #befcae;
  --color-tertiary: #f0efd6;
  --color-tertiary-alt: #f1efeb;
  --color-light: #fafaf8;
+ --color-text-surface: #fff;
  --color-accent: #F5893B;    /* botones, llamadas a la acción */
  --color-highlight: #BEFCAE; /* hover, detalles */
  --color-text: #275559;

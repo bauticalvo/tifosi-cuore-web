@@ -39,7 +39,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
   const hasActiveFilters = Object.keys(filters).length > 0
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6">
+    <div className="bg-light rounded-lg shadow-sm border p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>

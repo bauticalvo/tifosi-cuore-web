@@ -38,25 +38,25 @@ export const ProductsPage: React.FC = () => {
   }, [filters, sort])
 
   return (
-    <div className="min-h-screen bg-gray-50 mt-[11vh] lg:px-20">
+    <div className="min-h-screen  mt-[11vh] lg:px-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-6">
-          <Link to="/" className="hover:text-gray-700">Inicio</Link>
+        <nav className="flex items-center space-x-2 text-sm text-text-surface mb-6">
+          <Link to="/" className="hover:text-primary">Inicio</Link>
           <span>/</span>
-          <span className="text-gray-900 font-medium">Productos</span>
+          <span className="underline font-medium">Productos</span>
         </nav>
 
         {/* Header */}
         <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-gray-600">{productCount} PRODUCTOS</p>
+            <p className="text-text-surface">{productCount} PRODUCTOS</p>
             <div className="flex items-center gap-4">
               {/* <ProductSort sort={sort} onSortChange={setSort} /> */}
               
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50"
+                className="lg:hidden px-4 py-2 border border-background rounded text-sm font-medium text-primary hover:bg-gray-50"
               >
                 Filtros
               </button>
@@ -109,7 +109,7 @@ export const ProductsPage: React.FC = () => {
                   {page > 1 && (
                     <button
                       onClick={() => handlePageChange(page - 1)}
-                      className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50"
+                      className="px-4 py-2 border bg-background border-background rounded text-sm font-medium text-primary hover:bg-gray-50"
                     >
                       Anterior
                     </button>
@@ -134,8 +134,8 @@ export const ProductsPage: React.FC = () => {
                         onClick={() => handlePageChange(pageNum)}
                         className={`px-3 py-1 border rounded text-sm ${
                           page === pageNum
-                            ? 'border-blue-500 bg-blue-50 text-blue-700'
-                            : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                            ? 'border-primary bg-background text-primary'
+                            : 'border-background bg-background/80 text-primary hover:bg-background'
                         }`}
                       >
                         {pageNum}
@@ -147,7 +147,7 @@ export const ProductsPage: React.FC = () => {
                   {page < pagination.pages && (
                     <button
                       onClick={() => handlePageChange(page + 1)}
-                      className="px-4 py-2 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50"
+                      className="px-4 py-2 bg-background border border-background rounded text-sm font-medium text-primary hover:bg-tertiary"
                     >
                       Siguiente
                     </button>

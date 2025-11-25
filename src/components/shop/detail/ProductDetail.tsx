@@ -115,16 +115,16 @@ if (isLoading) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 mt-[10vh]">
       {/* Breadcrumb */}
-      <nav className="text-sm text-light mb-6">
-        <Link to="/" className="hover:text-light">Inicio</Link>
+      <nav className="text-sm text-text-surface mb-6">
+        <Link to="/" className="hover:text-text-surface">Inicio</Link>
         <span className="mx-2">/</span>
-        <Link to="/products" className="hover:text-light">Productos</Link>
+        <Link to="/products" className="hover:text-text-surface">Productos</Link>
         <span className="mx-2">/</span>
-        <Link to={`/products?category=${product.category}`} className="hover:text-light">
+        <Link to={`/products?category=${product.category}`} className="hover:text-text-surface">
           {getCategoryName(product.category)}
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-light font-medium underline">{product.name}</span>
+        <span className="text-text-surface font-medium underline">{product.name}</span>
       </nav>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -132,7 +132,7 @@ if (isLoading) {
         <div className="space-y-4">
           {/* Imagen principal */}
           <div 
-            className="bg-tertiary-alt rounded-lg aspect-[3/3] flex items-center justify-center overflow-hidden cursor-zoom-in"
+            className="bg-bg-images rounded-lg aspect-[3/3] flex items-center justify-center overflow-hidden cursor-zoom-in"
             onClick={() => setIsModalOpen(true)}
           >
             {product.images && product.images.length > 0 ? (
@@ -155,7 +155,7 @@ if (isLoading) {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`bg-tertiary-alt rounded aspect-square overflow-hidden border-2 p-2 ${
+                    className={`bg-bg-images rounded aspect-square overflow-hidden border-2 p-2 ${
                       selectedImage === index ? 'border-primary' : 'border-transparent'
                     }`}
                   >
@@ -186,7 +186,7 @@ if (isLoading) {
         <div className="space-y-6">
           {/* Equipo y Liga */}
           {(product.team || product.league) && (
-            <div className="text-sm font-regular text-light uppercase">
+            <div className="text-sm font-regular text-text-surface uppercase">
               {product.team && (product.team as any).name}
               {product.team && product.league && ' • '}
               {product.league && (product.league as any).name}
@@ -201,24 +201,24 @@ if (isLoading) {
           {/* Descripción */}
           {product.description && (
             <div className="border-t border-tertiary pt-4">
-              <h3 className="text-lg font-medium text-light mb-2">Descripción</h3>
-              <p className="text-light leading-relaxed">{product.description}</p>
+              <h3 className="text-lg font-medium text-text-surface mb-2">Descripción</h3>
+              <p className="text-text-surface leading-relaxed">{product.description}</p>
             </div>
           )}
           {/* Temporada */}
-          <div className="text-sm text-light">
+          <div className="text-sm text-text-surface">
             Temporada {product.season.from}-{product.season.to}
           </div>
 
           {/* Precio */}
           <div className="space-y-2">
             <div className="flex items-center gap-3">
-              <span className="text-2xl font-bold text-light">
+              <span className="text-2xl font-bold text-text-surface">
                 ${discountedPrice.toFixed(2)}
               </span>
               {hasDiscount && (
                 <>
-                  <span className="text-lg text-light line-through">
+                  <span className="text-lg text-text-surface line-through">
                     ${product.price.toFixed(2)}
                   </span>
                   <span className="bg-red-500 text-white px-2 py-1 text-sm rounded">
@@ -232,7 +232,7 @@ if (isLoading) {
           {/* Colores */}
           {product.color && product.color.length > 0 && (
             <div className="space-y-3">
-              <label className="block text-sm font-medium text-light">
+              <label className="block text-sm font-medium text-text-surface">
                 Color
               </label>
               <div className="flex items-center gap-2">

@@ -120,7 +120,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
                 to={`/products/${relatedProduct.slug}`}
                 className="block"
               >
-                <div className="bg-tertiary-alt rounded-lg aspect-[3/3] p-2 overflow-hidden mb-3 relative">
+                <div className="bg-background/80 rounded-lg aspect-[3/3] p-2 overflow-hidden mb-3 relative">
                   {imageUrl ? (
                     <img 
                       src={imageUrl} 
