@@ -56,7 +56,6 @@ export const SlideCarousel = ({ products }: SlideCarouselProps) => {
               >
                 {firstImageUrl && (
                   <div 
-                  onClick={() => handleDetail(card.slug)}
                   className='w-[35vw] h-[20vh] xl:w-[30vw] xl:h-[40vh] flex items-center justify-center p-4 border border-grey1/20 bg-background/80 transition-colors duration-300 group-hover:border-grey1/40'>
                     <img
                       src={
@@ -69,9 +68,17 @@ export const SlideCarousel = ({ products }: SlideCarouselProps) => {
                     />
                   </div>
                 )}
-                <div className="bg-background/80 w-full flex flex-col items-center justify-center p-3 border border-grey1/20 border-t-0 transition-colors duration-300 group-hover:border-grey1/40 group-hover:border-t-0">
+                <div 
+                  className="bg-background/80 w-full flex flex-col items-center justify-center p-3 border border-grey1/20 border-t-0 transition-colors duration-300 group-hover:border-grey1/40 group-hover:border-t-0">
                   <h1 className="text-text font-medium text-sm md:text-base xl:text-xl text-center leading-tight mb-1">{card.name}</h1>
-                  <h1 className="text-text-alt font-light text-sm xl:text-lg">${card?.price.toLocaleString()}</h1>
+                  <div className='flex justify-between items-center w-full px-20'>
+                    <h1 className="text-text-alt font-light text-sm xl:text-lg">${card?.price.toLocaleString()}</h1>
+                    <button 
+                      onClick={() => handleDetail(card.slug)}
+                      className="bg-primary px-8 rounded-md group-hover:px-4 group-hover:bg-accent text-light transition-all"
+                    >Ver</button>
+                            
+                  </div>
                 </div>
               </div>
             </motion.div>

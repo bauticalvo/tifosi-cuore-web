@@ -6,11 +6,13 @@ import Landing from './pages/Landing'
 import { ProductsPage } from './components/shop/products/ProducstPage'
 import {ProductDetail} from './components/shop/detail/ProductDetail'
 import { BlokeCore } from './pages/BlokeCore'
+import ScrollToTop from './hooks/useScrollToTop'
 
 function App() {
 
   return (
-      <div className='h-full w-full font-primary  overflow-x-scroll no-scrollbar'>
+      <div className='h-auto w-full font-primary bg-primary overflow-x-scroll no-scrollbar'>
+        <ScrollToTop />
         <Header />
         <Routes>
           <Route index element={<Landing />} />

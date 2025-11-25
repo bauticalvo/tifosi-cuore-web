@@ -77,7 +77,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
   if (isLoading) {
     return (
       <section className="mt-16 border-t pt-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>
+        <h2 className="text-2xl font-bold text-light mb-6">{title}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(limit)].map((_, index) => (
             <div key={index} className="animate-pulse">
@@ -99,7 +99,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
 
   return (
     <section className="mt-16 border-t pt-8">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">{title}</h2>
+      <h2 className="text-2xl font-bold text-light mb-6">{title}</h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {productsToShow.map((relatedProduct) => {
@@ -120,7 +120,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
                 to={`/products/${relatedProduct.slug}`}
                 className="block"
               >
-                <div className="bg-gray-100 rounded-lg aspect-[3/3] p-2 overflow-hidden mb-3 relative">
+                <div className="bg-tertiary-alt rounded-lg aspect-[3/3] p-2 overflow-hidden mb-3 relative">
                   {imageUrl ? (
                     <img 
                       src={imageUrl} 
@@ -144,37 +144,32 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
                 <div className="space-y-1">
                   {/* Equipo */}
                   {relatedProduct.team && (
-                    <p className="text-sm text-gray-600 font-medium">
+                    <p className="text-sm text-tertiary font-medium">
                       {(relatedProduct.team as any).name || relatedProduct.team}
                     </p>
                   )}
                   
                   {/* Nombre del producto */}
-                  <h3 className="font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                  <h3 className="font-semibold text-light line-clamp-2 group-hover:text-tertiary transition-colors">
                     {relatedProduct.name}
                   </h3>
                   
                   {/* Temporada */}
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-tertiary-alt">
                     Temporada {relatedProduct.season.from}-{relatedProduct.season.to}
                   </p>
                   
                   {/* Precio */}
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-gray-900">
+                    <span className="text-lg font-bold text-light">
                       ${discountedPrice.toFixed(2)}
                     </span>
                     {hasDiscount && (
-                      <span className="text-sm text-gray-500 line-through">
+                      <span className="text-sm text-tertiary-alt line-through">
                         ${relatedProduct.price.toFixed(2)}
                       </span>
                     )}
                   </div>
-                  
-                  {/* Categoría */}
-                  <p className="text-xs text-gray-500 capitalize">
-                    {getCategoryName(relatedProduct.category)}
-                  </p>
                 </div>
               </Link>
             </div>

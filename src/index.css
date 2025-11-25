@@ -25,12 +25,17 @@
   .no-scrollbar {
     -ms-overflow-style: none; /* IE y Edge */
     scrollbar-width: none;    /* Firefox */
+    
   }
   .no-scrollbar::-webkit-scrollbar {
     display: none;            /* Chrome, Safari, Opera */
   }
 }
 
+body, html {
+  background-color: var(--color-text);
+  scroll-behavior: smooth;
+}
 button {
   cursor: pointer;
 }

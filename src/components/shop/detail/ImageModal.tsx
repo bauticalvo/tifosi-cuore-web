@@ -117,7 +117,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({
     >
       {/* Botón cerrar */}
       <button
-        className="absolute top-4 right-4 text-white text-2xl z-10 hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center"
+        className="absolute top-4 right-4 text-tertiary-alt text-2xl z-10 hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center"
         onClick={(e) => {
           e.stopPropagation(); // Detener propagación
           onClose();
@@ -130,7 +130,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({
       <div className="absolute top-4 left-4 flex gap-2 z-10">
         <button
           onClick={handleZoomIn}
-          className="bg-white bg-opacity-20 text-primary p-2 rounded hover:bg-opacity-30 transition-all disabled:opacity-50"
+          className="bg-black bg-opacity-20 text-tertiary-alt p-2 rounded hover:bg-opacity-30 transition-all disabled:opacity-50"
           disabled={zoomLevel >= 3}
           title="Acercar"
         >
@@ -138,7 +138,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({
         </button>
         <button
           onClick={handleZoomOut}
-          className="bg-white bg-opacity-20 text-primary p-2 rounded hover:bg-opacity-30 transition-all disabled:opacity-50"
+          className="bg-black bg-opacity-20 text-tertiary-alt p-2 rounded hover:bg-opacity-30 transition-all disabled:opacity-50"
           disabled={zoomLevel <= 1}
           title="Alejar"
         >
@@ -147,7 +147,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({
         {zoomLevel > 1 && (
           <button
             onClick={handleResetZoom}
-            className="bg-white bg-opacity-20 text-primary p-2 rounded hover:bg-opacity-30 transition-all"
+            className="bg-black bg-opacity-20 text-tertiary-alt p-2 rounded hover:bg-opacity-30 transition-all"
             title="Restablecer zoom"
           >
             <BiReset className="w-5 h-5" />
@@ -156,7 +156,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({
       </div>
 
       {/* Contador de imágenes */}
-      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-white z-10 bg-black bg-opacity-50 px-3 py-1 rounded-full">
+      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-tertiary-alt z-10 bg-black bg-opacity-50 px-3 py-1 rounded-full">
         {currentIndex + 1} / {images.length}
       </div>
 
@@ -165,13 +165,13 @@ export const ImageModal: React.FC<ImageModalProps> = ({
         <>
           <button
             onClick={handlePrevious}
-            className="absolute left-4 text-white text-3xl z-10 hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center"
+            className="absolute left-4 text-tertiary-alt text-3xl z-10 hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center"
           >
             ‹
           </button>
           <button
             onClick={handleNext}
-            className="absolute right-4 text-white text-3xl z-10 hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center"
+            className="absolute right-4 text-tertiary-alt text-3xl z-10 hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center"
           >
             ›
           </button>

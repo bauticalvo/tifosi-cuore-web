@@ -115,16 +115,16 @@ if (isLoading) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 mt-[10vh]">
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500 mb-6">
-        <Link to="/" className="hover:text-gray-700">Inicio</Link>
+      <nav className="text-sm text-light mb-6">
+        <Link to="/" className="hover:text-light">Inicio</Link>
         <span className="mx-2">/</span>
-        <Link to="/products" className="hover:text-gray-700">Productos</Link>
+        <Link to="/products" className="hover:text-light">Productos</Link>
         <span className="mx-2">/</span>
-        <Link to={`/products?category=${product.category}`} className="hover:text-gray-700">
+        <Link to={`/products?category=${product.category}`} className="hover:text-light">
           {getCategoryName(product.category)}
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900 font-medium">{product.name}</span>
+        <span className="text-light font-medium underline">{product.name}</span>
       </nav>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -132,7 +132,7 @@ if (isLoading) {
         <div className="space-y-4">
           {/* Imagen principal */}
           <div 
-            className="bg-gray-100 rounded-lg aspect-[3/3] flex items-center justify-center overflow-hidden cursor-zoom-in"
+            className="bg-tertiary-alt rounded-lg aspect-[3/3] flex items-center justify-center overflow-hidden cursor-zoom-in"
             onClick={() => setIsModalOpen(true)}
           >
             {product.images && product.images.length > 0 ? (
@@ -142,7 +142,7 @@ if (isLoading) {
                 className="w-full h-full object-contain"
               />
             ) : (
-              <span className="text-gray-400">Imagen no disponible</span>
+              <span className="text-tertiary-alt">Imagen no disponible</span>
             )}
           </div>
           
@@ -155,7 +155,7 @@ if (isLoading) {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`bg-gray-100 rounded aspect-square overflow-hidden border-2 ${
+                    className={`bg-tertiary-alt rounded aspect-square overflow-hidden border-2 p-2 ${
                       selectedImage === index ? 'border-primary' : 'border-transparent'
                     }`}
                   >
@@ -186,7 +186,7 @@ if (isLoading) {
         <div className="space-y-6">
           {/* Equipo y Liga */}
           {(product.team || product.league) && (
-            <div className="text-sm font-semibold text-gray-600 uppercase">
+            <div className="text-sm font-regular text-light uppercase">
               {product.team && (product.team as any).name}
               {product.team && product.league && ' • '}
               {product.league && (product.league as any).name}
@@ -194,31 +194,31 @@ if (isLoading) {
           )}
 
           {/* Nombre del producto */}
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-medium text-tertiary">
             {product.name}
           </h1>
 
           {/* Descripción */}
           {product.description && (
-            <div className="border-t border-gray-200 pt-4">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Descripción</h3>
-              <p className="text-gray-600 leading-relaxed">{product.description}</p>
+            <div className="border-t border-tertiary pt-4">
+              <h3 className="text-lg font-medium text-light mb-2">Descripción</h3>
+              <p className="text-light leading-relaxed">{product.description}</p>
             </div>
           )}
           {/* Temporada */}
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-light">
             Temporada {product.season.from}-{product.season.to}
           </div>
 
           {/* Precio */}
           <div className="space-y-2">
             <div className="flex items-center gap-3">
-              <span className="text-2xl font-bold text-gray-900">
+              <span className="text-2xl font-bold text-light">
                 ${discountedPrice.toFixed(2)}
               </span>
               {hasDiscount && (
                 <>
-                  <span className="text-lg text-gray-500 line-through">
+                  <span className="text-lg text-light line-through">
                     ${product.price.toFixed(2)}
                   </span>
                   <span className="bg-red-500 text-white px-2 py-1 text-sm rounded">
@@ -232,7 +232,7 @@ if (isLoading) {
           {/* Colores */}
           {product.color && product.color.length > 0 && (
             <div className="space-y-3">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-light">
                 Color
               </label>
               <div className="flex items-center gap-2">
@@ -256,11 +256,11 @@ if (isLoading) {
           {/* Tallas */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-tertiary-alt">
                 Seleccionar Talla
               </label>
               {selectedVariant && (
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-tertiary-alt">
                   {selectedVariant.stock} disponibles
                 </span>
               )}
@@ -275,8 +275,8 @@ if (isLoading) {
                     selectedSize === variant.size
                       ? 'border-primary bg-blue-50 text-primary'
                       : variant.stock === 0
-                      ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
-                      : 'border-gray-300 text-gray-700 hover:border-gray-400'
+                      ? 'border-tertiary bg-tertiary text-tertiary-alt cursor-not-allowed'
+                      : 'border-tertiary text-tertiary-alt hover:border-tertiary'
                   }`}
                 >
                   {getSizeLabel(variant.size)}
@@ -288,19 +288,19 @@ if (isLoading) {
           {/* Cantidad y Botón de compra */}
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <label className="text-sm font-medium text-gray-700">Cantidad</label>
-              <div className="flex items-center border border-gray-300 rounded">
+              <label className="text-sm font-medium text-tertiary-alt">Cantidad</label>
+              <div className="flex items-center border border-tertiary rounded">
                 <button
                   onClick={() => handleQuantityChange(quantity - 1)}
-                  className="px-3 py-2 hover:bg-gray-100 transition-colors disabled:text-gray-400"
+                  className="px-3 py-2 hover:bg-tertiary hover:text-text transition-colors disabled:bg-none disabled:bg-tertiary-alt/50"
                   disabled={quantity <= 1}
                 >
                   -
                 </button>
-                <span className="px-4 py-2 min-w-12 text-center">{quantity}</span>
+                <span className="px-4 py-2 min-w-12 text-center text-tertiary-alt">{quantity}</span>
                 <button
                   onClick={() => handleQuantityChange(quantity + 1)}
-                  className="px-3 py-2 hover:bg-gray-100 transition-colors disabled:text-gray-400"
+                  className="px-3 py-2 hover:bg-tertiary hover:text-text transition-colors disabled:bg-none disabled:bg-tertiary-alt/50"
                   disabled={selectedVariant ? quantity >= selectedVariant.stock : false}
                 >
                   +
@@ -311,7 +311,7 @@ if (isLoading) {
             <button
               onClick={handleAddToCart}
               disabled={!selectedSize || (selectedVariant && selectedVariant.stock === 0)}
-              className="w-full bg-primary text-white py-3 px-6 rounded-md font-medium hover:bg-primary disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-primary border border-tertiary-alt text-tertiary-alt py-3 px-6 rounded-md font-medium hover:bg-primary disabled:bg-tertiary/50 disabled:cursor-not-allowed transition-colors"
             >
               {!selectedSize 
                 ? 'SELECCIONA UNA TALLA' 
@@ -329,15 +329,15 @@ if (isLoading) {
 
 
           {/* Información adicional */}
-          <div className="border-t border-gray-200 pt-4">
+          <div className="border-t border-tertiary pt-4">
             <div className="flex gap-8 text-sm">
-              <button className="text-gray-600 hover:text-gray-900 font-medium">
+              <button className="text-tertiary-alt hover:text-tertiary-alt font-medium">
                 INFO & TALLAS
               </button>
-              <button className="text-gray-600 hover:text-gray-900 font-medium">
+              <button className="text-tertiary-alt hover:text-tertiary-alt font-medium">
                 ENVÍO
               </button>
-              <button className="text-gray-600 hover:text-gray-900 font-medium">
+              <button className="text-tertiary-alt hover:text-tertiary-alt font-medium">
                 CUIDADO DEL PRODUCTO
               </button>
             </div>
