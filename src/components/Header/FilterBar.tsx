@@ -1,14 +1,11 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { ShopMenu } from './Filter/ShopMenu'
-import {
-  ColectionMenuElements,
-  MoreMenuElements,
-  ProductsMenuElements,
-} from './Filter/ShopMenuData'
+import { MiniShopMenu } from './Filter/ShopMenu'
+import { SimpleMenu } from './Filter/ShopMenuData'
 import { FaCartShopping } from "react-icons/fa6";
+import { Link } from 'react-router';
 
 export const FilterBar = () => {
-  const [isHovered, setIsHovered] = useState(0)
+  const [isHovered, setIsHovered] = useState(2)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -64,9 +61,9 @@ export const FilterBar = () => {
         {url === 'none' ? (
           <p className="group relative cursor-default">{text}</p>
         ) : (
-          // <Link href={url || '#'}>
+          <Link to={url || '#'}>
             <p className="group relative">{text}</p>
-          // </Link>
+          </Link>
         )}
         {/* <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-tertiary transition-all duration-300 ease-out group-hover:w-full"></span> */}
       </button>
@@ -76,19 +73,20 @@ export const FilterBar = () => {
   return (
     <div className="w-full h-full border-b border-light/20 flex items-center justify-between space-x-6 px-8 relative">
       <section className="hidden md:flex w-full">
-        <CustomButton text="Tienda" index={1} url="/products" />
-        <CustomButton text="Colecciones" index={2} url="/colections" />
-        {/* <CustomButton text="Más" index={3} url="none" /> */}
+        <CustomButton text="Camisetas" index={1} url="/products/shirts" />
+        <CustomButton text="Pantalones" index={2} url="/products/shorts" />
+        <CustomButton text="Buzos" index={3} url="/products/buzos" />
+        <CustomButton text="Conjuntos" index={4} url="/products/conjuntos" />
       </section>
       <section className="flex md:hidden">
         <CustomButton text="MENU" index={6} />
       </section>
       <section>
-        <CustomButton text="Cart" index={4} />
+        <CustomButton text="" index={5} />
       </section>
 
       {/* Menú desplegable */}
-      {(isHovered === 1 || isHovered === 2 || isHovered === 3) && (
+      {(isHovered === 1 || isHovered === 2 || isHovered === 3|| isHovered === 4) && (
         <div
           ref={menuRef}
           className="absolute top-full left-0 w-full hidden md:flex backdrop-blur-sm shadow-xl z-50 border-t border-light/10"
@@ -96,29 +94,18 @@ export const FilterBar = () => {
           onMouseLeave={handleMouseLeaveMenu}
         >
           {isHovered === 1 && (
-            <div className="w-full">
-              <ShopMenu
-                columns={ProductsMenuElements.columns}
-                imageColumns={ProductsMenuElements.imageColumns}
-              />
-            </div>
+            <MiniShopMenu rows={SimpleMenu.camisetas} />
           )}
           {isHovered === 2 && (
-            <div className="w-full">
-              <ShopMenu
-                columns={ColectionMenuElements.columns}
-                imageColumns={ColectionMenuElements.imageColumns}
-              />
-            </div>
+            <MiniShopMenu rows={SimpleMenu.pantalones} />
           )}
           {isHovered === 3 && (
-            <div className="w-full">
-              <ShopMenu
-                columns={MoreMenuElements.columns}
-                imageColumns={MoreMenuElements.imageColumns || []}
-              />
-            </div>
+            <MiniShopMenu rows={SimpleMenu.buzos} />
           )}
+          {isHovered === 4 && (
+            <MiniShopMenu rows={SimpleMenu.conjuntos} />
+          )}
+
         </div>
       )}
     </div>
