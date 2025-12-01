@@ -52,7 +52,25 @@ export const ProductsMenuElements = {
     },
     {
       title: 'Buzos',
-      titleUrl: '/products/sweatwear',
+      titleUrl: '/products/buzos',
+      rows: [
+        {
+          text: 'Premier League',
+          url: '/products/england',
+        },
+        {
+          text: 'Serie A',
+          url: '/products/italy',
+        },
+        {
+          text: 'La Liga',
+          url: '/products/france',
+        },
+      ],
+    },
+    {
+      title: 'Conjuntos',
+      titleUrl: '/products/conjuntos',
       rows: [
         {
           text: 'Premier League',

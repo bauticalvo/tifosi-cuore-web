@@ -5,6 +5,7 @@ import {
   MoreMenuElements,
   ProductsMenuElements,
 } from './Filter/ShopMenuData'
+import { FaCartShopping } from "react-icons/fa6";
 
 export const FilterBar = () => {
   const [isHovered, setIsHovered] = useState(0)
@@ -77,7 +78,7 @@ export const FilterBar = () => {
       <section className="hidden md:flex w-full">
         <CustomButton text="Tienda" index={1} url="/products" />
         <CustomButton text="Colecciones" index={2} url="/colections" />
-        <CustomButton text="Más" index={3} url="none" />
+        {/* <CustomButton text="Más" index={3} url="none" /> */}
       </section>
       <section className="flex md:hidden">
         <CustomButton text="MENU" index={6} />

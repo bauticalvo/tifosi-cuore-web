@@ -1,4 +1,3 @@
-// src/components/Products/ProductGrid.tsx
 import React from 'react'
 import { Link } from 'react-router'
 import type { Product } from '@/types/api/products'
@@ -47,9 +46,9 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading = 
         const imageUrl = getImageUrl(product)
 
         return (
-          <div key={product._id} className="group">
-            <Link to={`/products/${product.slug}`} className="block max-md:flex space-x-2">
-              <div className="bg-gray-100 max-md:w-2/5 rounded-lg aspect-[3/3] overflow-hidden mb-3 relative p-2">
+          <div key={product._id} className="group bg-background rounded-lg">
+            <Link to={`/products/${product.slug}`} className="block  max-md:space-x-2 max-md:flex items-center justify-center ">
+              <div className="bg-primary/80 max-md:w-2/5 rounded-t-lg aspect-[3/3] overflow-hidden mb-3 relative p-2">
                 {imageUrl ? (
                   <img 
                     src={imageUrl} 
@@ -69,31 +68,31 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading = 
                 )}
               </div>
 
-              <div className="space-y-1 max-md:w-3/5">
+              <div className="space-y-1 p-2 max-md:w-3/5">
                 {/* Equipo */}
                 {product.team && (
-                  <p className="text-sm text-gray-600 font-medium">
+                  <p className="text-sm text-dark-text  font-medium">
                     {(product.team as any).name || product.team}
                   </p>
                 )}
                 
                 {/* Nombre del producto */}
-                <h3 className="font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                <h3 className="font-semibold text-text line-clamp-2 group-hover:text-text/80 transition-colors">
                   {product.name}
                 </h3>
                 
                 {/* Temporada */}
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-dark-text ">
                   Temporada {product.season.from}-{product.season.to}
                 </p>
                 
                 {/* Precio */}
                 <div className="flex items-center gap-2">
-                  <span className="text-lg font-bold text-gray-900">
+                  <span className="text-lg font-bold text-dark-text">
                     ${discountedPrice.toFixed(2)}
                   </span>
                   {hasDiscount && (
-                    <span className="text-sm text-gray-500 line-through">
+                    <span className="text-sm text-dark-text  line-through">
                       ${product.price.toFixed(2)}
                     </span>
                   )}
