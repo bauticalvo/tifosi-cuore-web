@@ -116,7 +116,7 @@ export interface ProductFormData {
 // ==================== TIPOS PARA FILTROS ====================
 
 export interface ProductFilters {
-  category?: 'camiseta' | 'short' | 'buzo';
+  category?: 'camiseta' | 'short' | 'buzo' | "conjuntos";
   team?: string;
   league?: string;
   country?: string;
@@ -127,6 +127,7 @@ export interface ProductFilters {
   season?: string;
   is_featured?: boolean;
   tags?: string[];
+  [key: string]: any;
 }
 
 export interface ProductSortOptions {

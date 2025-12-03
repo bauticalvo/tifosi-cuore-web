@@ -1,4 +1,4 @@
-// src/components/Products/ProductFilters.tsx
+// src/components/shop/ProductFilters.tsx
 import React from 'react'
 import type { ProductFilters as ProductFiltersType } from '@/types/api/products'
 import type { FilterOptions } from '@/hooks/useFilterOptions'
@@ -49,7 +49,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         {hasActiveFilters && (
           <button
             onClick={clearFilters}
-            className="text-sm text-blue-600 hover:text-blue-800"
+            className="text-sm text-primary hover:text-primary/80 transition-colors"
           >
             Limpiar filtros
           </button>
@@ -80,7 +80,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         <div>
           <h3 className="text-sm font-medium text-gray-900 mb-3">Equipos</h3>
           <div className="space-y-2 max-h-40 overflow-y-auto">
-            {filterOptions.teams.slice(0, 10).map(team => (
+            {filterOptions.teams.slice(0).map(team => (
               <label key={team._id} className="flex items-center">
                 <input
                   type="checkbox"
@@ -98,7 +98,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         <div>
           <h3 className="text-sm font-medium text-gray-900 mb-3">Ligas</h3>
           <div className="space-y-2 max-h-40 overflow-y-auto">
-            {filterOptions.leagues.slice(0, 10).map(league => (
+            {filterOptions.leagues.map(league => (
               <label key={league._id} className="flex items-center">
                 <input
                   type="checkbox"
@@ -116,7 +116,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         <div>
           <h3 className="text-sm font-medium text-gray-900 mb-3">Países</h3>
           <div className="space-y-2 max-h-40 overflow-y-auto">
-            {filterOptions.countries.slice(0, 10).map(country => (
+            {filterOptions.countries.map(country => (
               <label key={country._id} className="flex items-center">
                 <input
                   type="checkbox"
@@ -131,7 +131,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         </div>
 
         {/* Colores */}
-        <div>
+        {/* <div>
           <h3 className="text-sm font-medium text-gray-900 mb-3">Color</h3>
           <div className="flex flex-wrap gap-2">
             {filterOptions.colors.map(color => (
@@ -139,7 +139,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                 key={color._id}
                 onClick={() => toggleArrayFilter('color', color._id)}
                 className={`w-8 h-8 rounded-full border-2 ${
-                  Array.isArray(filters.color) && filters.color.includes(color._id)
+                  Array.isArray(filters.colors) ? filters.colors.includes(color._id) : filters.colors === color._id
                     ? 'border-blue-500 ring-2 ring-blue-200'
                     : 'border-gray-300'
                 }`}
@@ -148,7 +148,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
               />
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Tallas */}
         <div>
@@ -189,7 +189,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         </div>
 
         {/* Precio */}
-        <div>
+        {/* <div>
           <h3 className="text-sm font-medium text-gray-900 mb-3">Precio</h3>
           <div className="space-y-3">
             <div className="flex gap-2">
@@ -210,7 +210,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

@@ -1,22 +1,39 @@
 export const SimpleMenu = {
-  camisetas: [
-    { text: "Premier League", url: "/products/england" },
-    { text: "Serie A", url: "/products/italy" },
-    { text: "La Liga", url: "/products/france" },
+  Tienda: [
+    { text: "Camisetas", url: "/shop?category=camiseta" },
+    { text: "Pantalones", url: "/shop?category=short" },
+    { text: "Buzos", url: "/shop?category=buzo" },
+    { text: "Conjuntos", url: "/shop?category=conjunto" },
   ],
-  pantalones: [
-    { text: "Premier League", url: "/products/england" },
-    { text: "Serie A", url: "/products/italy" },
-    { text: "La Liga", url: "/products/france" },
+  leagues: [
+    { text: "Premier League", url: "/shop?league=68d59eaeaf7361991f287fc3", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645965/leagues/btgwxzeiam7fghf8fbx7.png" },
+    { text: "Serie A", url: "/shop?league=68d5a075af7361991f28808f", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645966/leagues/sgnhqofsnai4k5mlwn3x.png" },
+    { text: "La Liga", url: "/shop?league=68d5b3b3af7361991f2882ed", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645965/leagues/uewarsvmhtvoptpw9aa0.png" },
+    { text: "Bundesliga", url: "/shop?league=68d5b3e8af7361991f288338", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645965/leagues/ejqwehyh2vurune41lqq.png" },
+    { text: "Liga Argentina", url: "/shop?league=68d5ac18af7361991f2881c5", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645965/leagues/dzpejhkz5ftjkto2io27.png" },
+    { text: "Eredivisie", url: "/shop?league=68d5ab05af7361991f2880f7", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645965/leagues/ydfzdiwqrk12ikdjqkgo.png" },
+    { text: "Championship", url: "/shop?league=690fe475061e5de2dfc42456", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645899/leagues/c877gu4sgt2xtcpoplae.png" },
+    { text: "Liga MX", url: "/shop?league=69126b896cb36bf39d7a2179", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762814718/leagues/w2ae3rjifk1lj7nommd3.png" },
+  // { text: "Ligue 1", url: "/shop?league=68d5ab8eaf7361991f288137", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645965/leagues/elbteb8xcmjc3tzve3na.png" },
+  // { text: "MLS", url: "/shop?league=68d5ac7faf7361991f288262", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645965/leagues/osgtam1ftnm4qzk4w9ck.png" },
+  // { text: "Liga Portugal", url: "/shop?league=68d5abdfaf7361991f288191", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762645966/leagues/jnmi0dqoifejggmrscru.png" },
   ],
-  buzos: [
-    { text: "Premier League", url: "/products/england" },
-    { text: "Serie A", url: "/products/italy" },
-    { text: "La Liga", url: "/products/france" },
+  teams: [
+    { text: "Manchester City", url: "/shop?team=690fee06485da8f8b9dc6ddd", photo:"https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/ghgfmlfnznid3evrmwqd.png"},
+    { text: "Borusia Dortmund", url: "/shop?team=69126f1623deff0e04c57c3a", photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/xmgcichz1tpprrcyiklc.png"},
+    { text: "Torino", url: "/shop?team=690fee30485da8f8b9dc6df4", photo:"https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/tyhfg2wmcm8hmrob0pwj.png" },
+    { text: "Dorados De Sinaloa", url: "/shop?team=69126cca6cb36bf39d7a2191", photo:"https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/v2l4zkr1oetkfl1zpicj.png"},
+    { text: "Fiorentina", url: "/shop?team=69126ed123deff0e04c57c2f", photo:"https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/asiuicjon7ut9ddsblci.png"},
+    { text: "Pachuca", url: "/shop?team=69126e8f23deff0e04c57c19", photo:"https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/qiyvia13uzrlgjzhxwv9.png"},
+    { text: "TSG Hoffenheim", url: "/shop?team=69126f2f23deff0e04c57c41" ,photo: "https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/tr832hk0mtivjlycbvdv.png"},
+    { text: "Villareal", url: "/shop?team=69126f4523deff0e04c57c48", photo:"https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/b30hufxlrbrjtudz0bhk.png"},
+    { text: "Wrexham", url: "/shop?team=690feb7ca6b38211af2eaa04", photo:"https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/ielrl8wtzg95vakpeu15.png"},
   ],
-  conjuntos: [
-    { text: "Premier League", url: "/products/england" },
-    { text: "Serie A", url: "/products/italy" },
-    { text: "La Liga", url: "/products/france" },
+  more: [
+    { text: "Instagram", url: "/faq" },
+    { text: "Tik Tok", url: "/faq" },
+    { text: "|", url: "" },
+    { text: "Faq", url: "/faq" },
+    { text: "Contacto", url: "/contact" },
   ],
 };

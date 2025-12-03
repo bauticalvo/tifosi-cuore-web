@@ -1,11 +1,15 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { MiniShopMenu } from './Filter/ShopMenu'
+import { ShopMenu } from './Filter/ShopMenu'
 import { SimpleMenu } from './Filter/ShopMenuData'
 import { FaCartShopping } from "react-icons/fa6";
 import { Link } from 'react-router';
 
-export const FilterBar = () => {
-  const [isHovered, setIsHovered] = useState(2)
+interface HeaderProps {
+  setOpenMenu: (open: boolean) => void
+}
+
+export const FilterBar = ( { setOpenMenu }: HeaderProps) => {
+  const [isHovered, setIsHovered] = useState(0)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -53,33 +57,33 @@ export const FilterBar = () => {
 
   const CustomButton = ({ text, index, url }: { text: string; index: number; url?: string }) => {
     return (
-      <button
+      <div
         onMouseEnter={() => handleMouseEnterButton(index)}
         onMouseLeave={handleMouseLeaveButton}
         className="text-xl 2xl:text-2xl font-light group relative flex items-center h-full px-4 py-2 transition-colors hover:text-tertiary"
       >
-        {url === 'none' ? (
-          <p className="group relative cursor-default">{text}</p>
+        {url === 'menu' ? (
+          <button onClick={() => setOpenMenu(true)} className="group relative cursor-default">{text}</button>
         ) : (
           <Link to={url || '#'}>
             <p className="group relative">{text}</p>
           </Link>
         )}
         {/* <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-tertiary transition-all duration-300 ease-out group-hover:w-full"></span> */}
-      </button>
+      </div>
     )
   }
 
   return (
     <div className="w-full h-full border-b border-light/20 flex items-center justify-between space-x-6 px-8 relative">
       <section className="hidden md:flex w-full">
-        <CustomButton text="Camisetas" index={1} url="/products/shirts" />
-        <CustomButton text="Pantalones" index={2} url="/products/shorts" />
-        <CustomButton text="Buzos" index={3} url="/products/buzos" />
-        <CustomButton text="Conjuntos" index={4} url="/products/conjuntos" />
+        <CustomButton text="Tienda" index={1} url="/shop" />
+        <CustomButton text="Ligas" index={2} url="/shop" />
+        <CustomButton text="Equipos" index={3} url="/shop" />
+        <CustomButton text="Mas" index={4} url="/faq" />
       </section>
       <section className="flex md:hidden">
-        <CustomButton text="MENU" index={6} />
+        <CustomButton text="MENU" index={6} url='menu'/>
       </section>
       <section>
         <CustomButton text="" index={5} />
@@ -94,16 +98,16 @@ export const FilterBar = () => {
           onMouseLeave={handleMouseLeaveMenu}
         >
           {isHovered === 1 && (
-            <MiniShopMenu rows={SimpleMenu.camisetas} />
+            <ShopMenu rows={SimpleMenu.Tienda} />
           )}
           {isHovered === 2 && (
-            <MiniShopMenu rows={SimpleMenu.pantalones} />
+            <ShopMenu rows={SimpleMenu.leagues} />
           )}
           {isHovered === 3 && (
-            <MiniShopMenu rows={SimpleMenu.buzos} />
+            <ShopMenu rows={SimpleMenu.teams} />
           )}
           {isHovered === 4 && (
-            <MiniShopMenu rows={SimpleMenu.conjuntos} />
+            <ShopMenu rows={SimpleMenu.more} />
           )}
 
         </div>

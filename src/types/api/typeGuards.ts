@@ -1,4 +1,4 @@
-import type { Product, Media, Team, League, Country, Color, PopulatedProduct } from './products';
+import type { Product, Media, Team, League, Country, Color, PopulatedProduct } from './shop';
 
 // Type guards básicos
 export const isMedia = (obj: any): obj is Media => {

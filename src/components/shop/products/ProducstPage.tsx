@@ -1,15 +1,17 @@
-// src/pages/Products/Products.tsx
-import React, { useState } from 'react'
-import { Link } from 'react-router'
+import React, { useState, useEffect } from 'react'
+import { Link, useSearchParams } from 'react-router'
 import type { ProductFilters as ProductFiltersType } from '@/types/api/products'
 import { useFilterOptions } from '@/hooks/useFilterOptions'
 import { useFilteredProducts } from '@/hooks/useFilteredProducts'
-import { ProductSort } from './ProductSort'
 import { ProductFilters } from './ProductFilters'
 import { ProductGrid } from './ProductGrid'
+import { useQueryParams } from '@/hooks/useQueryParams'
 
 export const ProductsPage: React.FC = () => {
-  const [filters, setFilters] = useState<ProductFiltersType>({})
+  const [searchParams] = useSearchParams()
+  const { filters: initialFilters, updateParams } = useQueryParams()
+  
+  const [filters, setFilters] = useState<ProductFiltersType>(initialFilters)
   const [sort, setSort] = useState('newest')
   const [page, setPage] = useState(1)
   const [showFilters, setShowFilters] = useState(false)
@@ -26,6 +28,23 @@ export const ProductsPage: React.FC = () => {
   const productCount = productsData?.pagination?.total || 0
   const pagination = productsData?.pagination
 
+  // Sincronizar filters con query params
+  useEffect(() => {
+    setFilters(initialFilters)
+  }, [searchParams])
+
+  // Actualizar query params cuando cambian los filtros
+  const handleFiltersChange = (newFilters: ProductFiltersType) => {
+    setFilters(newFilters)
+    updateParams(newFilters)
+  }
+
+  // Limpiar todos los filtros
+  const handleClearFilters = () => {
+    setFilters({})
+    updateParams({})
+  }
+
   // Función para cambiar de página
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
@@ -37,14 +56,37 @@ export const ProductsPage: React.FC = () => {
     setPage(1)
   }, [filters, sort])
 
+  // Manejar filtros desde URL al cargar la página
+  useEffect(() => {
+    // Ejemplo: Si hay un filtro 'category' en la URL
+    const category = searchParams.get('category')
+    
+    // También podrías manejar filtros personalizados como 'shirts'
+    const shirts = searchParams.get('shirts')
+    if (shirts) {
+      // Convertir 'shirts' a un filtro de categoría si es necesario
+      handleFiltersChange({
+        ...filters,
+        category: 'shirts' // O lo que corresponda en tu sistema
+      })
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen  mt-[11vh] lg:px-20">
+    <div className="min-h-screen mt-[11vh] lg:px-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-sm text-text-surface mb-6">
-          <Link to="/" className="hover:text-primary">Inicio</Link>
+          <Link to="/" className="hover:underline">Inicio</Link>
           <span>/</span>
-          <span className="underline font-medium">Productos</span>
+          <span className="underline font-medium">Tienda</span>
+          {/* Mostrar filtros activos en breadcrumb */}
+          {Object.keys(filters).length > 0 && (
+            <>
+              <span>/</span>
+              <span className="text-primary font-medium">Filtrado</span>
+            </>
+          )}
         </nav>
 
         {/* Header */}
@@ -52,7 +94,7 @@ export const ProductsPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <p className="text-text-surface">{productCount} PRODUCTOS</p>
             <div className="flex items-center gap-4">
-              {/* <ProductSort sort={sort} onSortChange={setSort} /> */}
+              
               
               <button
                 onClick={() => setShowFilters(!showFilters)}
@@ -71,7 +113,7 @@ export const ProductsPage: React.FC = () => {
               <ProductFilters
                 filters={filters}
                 filterOptions={filterOptions}
-                onFiltersChange={setFilters}
+                onFiltersChange={handleFiltersChange}
                 productCount={productCount}
               />
             )}
@@ -80,13 +122,13 @@ export const ProductsPage: React.FC = () => {
           {/* Filtros Móvil */}
           {showFilters && (
             <div className="fixed inset-0 z-50 lg:hidden mt-[11vh]">
-              <div className="absolute inset-0 bg-black/50 " onClick={() => setShowFilters(false)} />
+              <div className="absolute inset-0 bg-black/50" onClick={() => setShowFilters(false)} />
               <div className="absolute right-0 top-0 h-full w-80 bg-white overflow-y-auto">
                 {filterOptions && (
                   <ProductFilters
                     filters={filters}
                     filterOptions={filterOptions}
-                    onFiltersChange={setFilters}
+                    onFiltersChange={handleFiltersChange}
                     productCount={productCount}
                   />
                 )}

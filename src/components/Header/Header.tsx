@@ -2,7 +2,12 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import FilterBar from './FilterBar'
 import { useNavigate } from 'react-router'
-export const Header = () => {
+
+interface HeaderProps {
+  setOpenMenu: (open: boolean) => void
+}
+
+export const Header = ({ setOpenMenu }: HeaderProps) => {
   const logoSection = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
@@ -38,7 +43,7 @@ export const Header = () => {
           <img onClick={() => navigate("/")} src="/logos/logo_acortado.svg" alt="tifosi_logo" className="h-full w-auto" />
       </section>
       <section className="w-full h-[4vh] border-t border-light">
-        <FilterBar />
+        <FilterBar setOpenMenu={setOpenMenu} />
       </section>
     </div>
   )

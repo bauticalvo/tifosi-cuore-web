@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, Link } from 'react-router'
 import { useProductBySlug } from '@/hooks/useGetProducts'
-import type { ProductVariant } from '@/types/api/products'
+import type { ProductVariant } from '@/types/api/shop'
 import { ImageModal } from './ImageModal'
 import { LoadingSqueleton } from './LoadingSqueleton'
 import { RelatedProducts } from './RelatedProducts'
@@ -40,7 +40,7 @@ if (isLoading) {
       <div className="text-center py-8">
         <p>Producto no encontrado</p>
         <Link 
-          to="/products" 
+          to="/shop" 
           className="mt-4 inline-block px-4 py-2 bg-primary text-white rounded hover:bg-primary"
         >
           Volver a productos
@@ -116,11 +116,11 @@ if (isLoading) {
     <div className="max-w-6xl mx-auto px-4 py-8 mt-[10vh]">
       {/* Breadcrumb */}
       <nav className="text-sm text-text-surface mb-6">
-        <Link to="/" className="hover:text-text-surface">Inicio</Link>
+        <Link to="/" className="hover:underline">Inicio</Link>
         <span className="mx-2">/</span>
-        <Link to="/products" className="hover:text-text-surface">Productos</Link>
+        <Link to="/shop" className="hover:underline">Productos</Link>
         <span className="mx-2">/</span>
-        <Link to={`/products?category=${product.category}`} className="hover:text-text-surface">
+        <Link to={`/shop?category=${product.category}`} className="hover:underline">
           {getCategoryName(product.category)}
         </Link>
         <span className="mx-2">/</span>

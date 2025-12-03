@@ -7,7 +7,7 @@ export interface FilterOptions {
   leagues: Array<{ _id: string; name: string }>
   countries: Array<{ _id: string; name: string }>
   categories: Array<{ value: string; label: string }>
-  colors: Array<{ _id: string; name: string; hex_code?: string }>
+  colors?: Array<{ _id: string; name: string; hex_code?: string }>
   sizes: string[]
   seasons: string[]
 }
@@ -21,7 +21,8 @@ export const useFilterOptions = () => {
         const [teamsRes, leaguesRes, countriesRes] = await Promise.all([
           api.get('/teams'),
           api.get('/leagues'),
-          api.get('/countries')
+          api.get('/countries'),
+          // api.get('/colors')
         ])
 
         return {
@@ -34,13 +35,7 @@ export const useFilterOptions = () => {
             { value: 'buzo', label: 'Buzos' },
             { value: 'conjunto', label: 'Conjuntos' }
           ],
-          colors: [
-            { _id: 'red', name: 'Rojo', hex_code: '#DC2626' },
-            { _id: 'blue', name: 'Azul', hex_code: '#2563EB' },
-            { _id: 'green', name: 'Verde', hex_code: '#16A34A' },
-            { _id: 'black', name: 'Negro', hex_code: '#000000' },
-            { _id: 'white', name: 'Blanco', hex_code: '#FFFFFF' }
-          ],
+          // colors: colorsRes.data.data || [],
           sizes: ['xs', 's', 'm', 'l', 'xl'],
           seasons: ['2024-25', '2023-24', '2022-23', '2021-22']
         }

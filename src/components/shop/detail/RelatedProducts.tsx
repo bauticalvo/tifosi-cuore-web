@@ -2,7 +2,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { useRelatedProducts } from '@/hooks/useRelatedProducts'
-import type { Product } from '@/types/api/products'
+import type { Product } from '@/types/api/shop'
 
 
 interface RelatedProductsProps {
@@ -117,7 +117,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = ({
           return (
             <div key={relatedProduct._id} className="group">
               <Link 
-                to={`/products/${relatedProduct.slug}`}
+                to={`/shop/${relatedProduct.slug}`}
                 className="block"
               >
                 <div className="bg-background/80 rounded-lg aspect-[3/3] p-2 overflow-hidden mb-3 relative">

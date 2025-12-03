@@ -7,18 +7,33 @@ import { ProductsPage } from './components/shop/products/ProducstPage'
 import {ProductDetail} from './components/shop/detail/ProductDetail'
 import { BlokeCore } from './pages/BlokeCore'
 import ScrollToTop from './hooks/useScrollToTop'
+import { useState } from 'react'
+import { Menu } from './components/Header/Menu/Menu'
+import { Error404 } from './pages/Error404'
+import FaqPage from './pages/Faq'
+import { Contact } from './pages/Contact'
 
 function App() {
+
+  const [openMenu, setOpenMenu] = useState(false)
 
   return (
       <div className='h-auto w-full font-primary bg-primary overflow-x-scroll no-scrollbar'>
         <ScrollToTop />
-        <Header />
+        {
+          openMenu && (
+            <Menu setOpenMenu={setOpenMenu} />
+          )
+        }
+        <Header setOpenMenu={setOpenMenu} />
         <Routes>
           <Route index element={<Landing />} />
           <Route path="/blokecore" element={<BlokeCore />} />
-          <Route path="/products" element={<ProductsPage />}/>
-          <Route path='/products/:slug' element={<ProductDetail />} />
+          <Route path="/shop" element={<ProductsPage />}/>
+          <Route path='/shop/:slug' element={<ProductDetail />} />
+          <Route path="/faq" element={<FaqPage />}/>
+          <Route path="/contact" element={<Contact />}/>
+          <Route path="/*" element={<Error404 />}/>
         </Routes>
         <Footer />
       </div>

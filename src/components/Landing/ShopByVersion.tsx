@@ -1,32 +1,78 @@
+"use client"
+
+import { motion } from "framer-motion"
 import { MdOutlineSubdirectoryArrowRight } from 'react-icons/md'
 
-export const ShopByVersion = () => {
-  const CategoryCard = ({ title, src }: { title: string; src: string }) => {
-    return (
-      <div className="w-[20vw] h-[30vh] flex flex-col items-start justify-center group">
-        <img
-          src={src}
-          className="border border-tertiary bg-tertiary-alt h-full w-full object-cover object-top"
-        />
-        <h1 className="text-2xl underline group-hover:px-2 transition-all ">{title}</h1>
-      </div>
-    )
-  }
+type Category = {
+  title: string
+  src: string
+}
 
+const categories: Category[] = [
+  { title: "Retro", src: "/images/blokecore/rona-retro.jpg" },
+  { title: "Ídolos", src: "/images/blokecore/messi-foto.jpg" },
+  { title: "Entrenamiento Actual", src: "/images/blokecore/mbappe-realmadrid.jpeg" },
+]
+
+export const ShopByVersion = () => {
   return (
-    <div className="bg-primary border-t border-tertiary-alt h-[80vh] w-screen flex items-center overflow-x-scroll no-scrollbar text-light">
-      <section className="w-[20vw] h-full flex flex-col items-start justify-center  px-6">
-        <h1 className="text-5xl">Colecciones especiales.</h1>
-        <button className="flex items-center">
-          <MdOutlineSubdirectoryArrowRight className="mr-2 " />
-          <span>Ver todos</span>
-        </button>
-      </section>
-      <section className="w-[80vw] space-x-2 h-full flex flex-row items-center justify-center">
-        <CategoryCard title="Retro" src="/images/blokecore/rona-retro.jpg" />
-        <CategoryCard title="Idolos" src="/images/blokecore/messi-foto.jpg" />
-        <CategoryCard title="Entrenamiento actual" src="/images/blokecore/mbappe-realmadrid.jpeg" />
-      </section>
-    </div>
+    <section className="w-full bg-primary text-light py-16 px-6 md:px-12 overflow-hidden">
+      <div className=" mx-auto flex flex-col md:flex-row justify-between">
+        
+        {/* ---------- LEFT SIDE (Title + Button) ---------- */}
+        <motion.div 
+          className="md:w-[28%] flex flex-col justify-center mb-10 md:mb-0"
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl md:text-5xl font-light uppercase leading-none tracking-tight">
+            Colecciones <br /> especiales.
+          </h1>
+
+          <button className="flex items-center text-light/80 hover:text-light transition-all mt-6 text-sm tracking-wide uppercase">
+            <MdOutlineSubdirectoryArrowRight className="mr-2 text-lg" />
+            Ver todos
+          </button>
+        </motion.div>
+
+        {/* ---------- RIGHT SIDE: CARDS ---------- */}
+        <div className="md:w-[70%] flex gap-6 overflow-x-auto no-scrollbar pb-4">
+          {categories.map((cat, i) => (
+            <motion.div
+              key={i}
+              className="group min-w-[70vw] sm:min-w-[40vw] md:min-w-[22vw] 
+                         flex flex-col cursor-pointer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+
+              {/* ------- IMAGE BOX ------- */}
+              <div className="w-full h-[45vh] md:h-[40vh] bg-grey-background 
+                              border border-light/20 overflow-hidden relative">
+                
+                <motion.img
+                  src={cat.src}
+                  className="w-full h-full object-cover object-top"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.4 }}
+                />
+              </div>
+
+              {/* ------- TITLE ------- */}
+              <motion.h2 
+                className="mt-3 text-xl md:text-2xl font-light uppercase tracking-wider"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 120 }}
+              >
+                {cat.title}
+              </motion.h2>
+
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }

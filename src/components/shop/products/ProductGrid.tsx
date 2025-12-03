@@ -46,9 +46,9 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading = 
         const imageUrl = getImageUrl(product)
 
         return (
-          <div key={product._id} className="group bg-background rounded-lg">
-            <Link to={`/products/${product.slug}`} className="block  max-md:space-x-2 max-md:flex items-center justify-center ">
-              <div className="bg-primary/80 max-md:w-2/5 rounded-t-lg aspect-[3/3] overflow-hidden mb-3 relative p-2">
+          <div key={product._id} className="group bg-background ">
+            <Link to={`/shop/${product.slug}`} className="block  max-md:space-x-2 max-md:flex items-center justify-center ">
+              <div className="bg-primary/80 max-md:w-2/5  aspect-[3/3] overflow-hidden relative p-3">
                 {imageUrl ? (
                   <img 
                     src={imageUrl} 

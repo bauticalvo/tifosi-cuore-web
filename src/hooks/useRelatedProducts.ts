@@ -1,7 +1,7 @@
 // src/hooks/useRelatedProducts.ts
 import { api } from '@/api/axiosIntance'
 import { useQuery } from '@tanstack/react-query'
-import type { Product } from '@/types/api/products'
+import type { Product } from '@/types/api/shop'
 
 interface RelatedProductsFilters {
   team?: string

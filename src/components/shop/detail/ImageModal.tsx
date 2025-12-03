@@ -1,6 +1,6 @@
 // components/ImageModal/ImageModal.tsx - Versión corregida
 import React, { useState } from 'react';
-import type { Media } from '@/types/api/products';
+import type { Media } from '@/types/api/shop';
 import { BiSolidZoomOut, BiSolidZoomIn, BiReset} from "react-icons/bi";
 import { MdOutlineRestartAlt } from 'react-icons/md';
 

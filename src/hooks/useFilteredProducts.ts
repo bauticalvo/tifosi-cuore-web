@@ -1,7 +1,7 @@
 // src/hooks/useFilteredProducts.ts
 import { api } from '@/api/axiosIntance'
 import { useQuery } from '@tanstack/react-query'
-import type { Product, ProductFilters } from '@/types'
+import type { Product, ProductFilters } from '@/types/api/products'
 
 interface UseFilteredProductsProps {
   filters: ProductFilters

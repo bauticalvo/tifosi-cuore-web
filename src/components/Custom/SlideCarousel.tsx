@@ -1,5 +1,5 @@
 'use client'
-import type { Product } from '@/types/api/products'
+import type { Product } from '@/types/api/shop'
 import { getImageUrl } from '@/types/api/typeGuards'
 import { motion, useMotionValue } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
@@ -22,69 +22,92 @@ export const SlideCarousel = ({ products }: SlideCarouselProps) => {
   }, [products])
 
   const handleDetail = (slug: string) => {
-    navigate(`/products/${slug}`)
+    navigate(`/shop/${slug}`)
   }
 
-  return (
-    <div className="relative w-screen overflow-hidden">
-      <motion.div
-        ref={carouselRef}
-        className="flex cursor-grab active:cursor-grabbing"
-        style={{ x }}
-        drag="x"
-        dragConstraints={{ right: 0, left: -width }}
-        dragElastic={0.1}
-        dragTransition={{ bounceStiffness: 600, bounceDamping: 30 }}
-      >
-        {[...products, ...products].map((card, index) => {
-          const [isHovered, setIsHovered] = useState(false)
+return (
+  <div className="relative w-screen overflow-hidden">
+    <motion.div
+      ref={carouselRef}
+      className="flex cursor-grab active:cursor-grabbing"
+      style={{ x }}
+      drag="x"
+      dragConstraints={{ right: 0, left: -width }}
+      dragElastic={0.1}
+      dragTransition={{ bounceStiffness: 600, bounceDamping: 30 }}
+    >
+      {[...products, ...products].map((card, index) => {
+        const [isHovered, setIsHovered] = useState(false)
 
-          const firstImageUrl = getImageUrl(card.images[0])
-          const secondImageUrl = card.images.length > 1 ? getImageUrl(card.images[1]) : null
+        const firstImageUrl = getImageUrl(card.images[0])
+        const secondImageUrl =
+          card.images.length > 1 ? getImageUrl(card.images[1]) : null
 
-          const hasSecondImage = secondImageUrl !== null
-
-          return (
-            <motion.div
-              key={`${card._id}-${index}`}
-              className="w-[35vw] h-auto md:w-[35vw] xl:w-[30vw] xl:h-auto flex-shrink-0 relative"
+        return (
+          <motion.div
+            key={`${card._id}-${index}`}
+            className="
+              shrink-0
+              w-[70vw] h-[55vh]
+              sm:w-[50vw] sm:h-[50vh]
+              md:w-[40vw] md:h-[45vh]
+              lg:w-[30vw] lg:h-[50vh]
+              xl:w-[25vw] xl:h-[55vh]
+              p-1
+            "
+          >
+            <div
+              className="w-full h-full flex flex-col bg-background/80 border border-grey1/20  overflow-hidden group"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
-              <div
-                className="w-full h-full relative flex flex-col group"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                {firstImageUrl && (
-                  <div 
-                  className='w-[35vw] h-[20vh] xl:w-[30vw] xl:h-[40vh] flex items-center justify-center p-4 border border-grey1/20 bg-background/80 transition-colors duration-300 group-hover:border-grey1/40'>
-                    <img
-                      src={
-                        isHovered && hasSecondImage && secondImageUrl ? secondImageUrl : firstImageUrl
-                      }
-                      alt={`slide-${card._id}`}
-                      className="w-full h-full object-contain select-none transition-all duration-500 group-hover:scale-105"
-                      draggable="false"
-                      onDragStart={(e) => e.preventDefault()}
-                    />
-                  </div>
-                )}
-                <div 
-                  className="bg-background/80 w-full flex flex-col items-center justify-center p-3 border border-grey1/20 border-t-0 transition-colors duration-300 group-hover:border-grey1/40 group-hover:border-t-0">
-                  <h1 className="text-text font-medium text-sm md:text-base xl:text-xl text-center leading-tight mb-1">{card.name}</h1>
-                  <div className='flex justify-between items-center w-full px-20'>
-                    <h1 className="text-text-alt font-light text-sm xl:text-lg">${card?.price.toLocaleString()}</h1>
-                    <button 
-                      onClick={() => handleDetail(card.slug)}
-                      className="bg-primary px-8 rounded-md group-hover:px-4 group-hover:bg-accent text-light transition-all"
-                    >Ver</button>
-                            
-                  </div>
+              {/* 🟧 Contenedor de imagen - tamaño fijo */}
+              <div className="w-full h-[65%] flex items-center justify-center bg-background border-b border-grey1/20 p-4">
+                <img
+                  src={
+                    isHovered && secondImageUrl ? secondImageUrl : firstImageUrl
+                  }
+                  alt={`slide-${card._id}`}
+                  className="
+                    w-full h-full 
+                    object-contain 
+                    transition-all duration-500 
+                    group-hover:scale-105 select-none
+                  "
+                  draggable="false"
+                  onDragStart={(e) => e.preventDefault()}
+                />
+              </div>
+
+              {/* 🟩 Texto + precio + botón */}
+              <div className="flex flex-col justify-between h-[35%] p-3">
+                <h1 className="text-text font-medium text-center text-base md:text-lg lg:text-xl leading-tight mb-2">
+                  {card.name}
+                </h1>
+
+                <div className="flex flex-row items-center justify-between px-4">
+                  <span className="text-text-alt font-light text-sm md:text-base">
+                    ${card.price.toLocaleString()}
+                  </span>
+
+                  <button
+                    onClick={() => handleDetail(card.slug)}
+                    className="
+                      bg-primary text-light px-6 py-1.5
+                      rounded-md transition-all
+                      group-hover:bg-accent
+                    "
+                  >
+                    Ver
+                  </button>
                 </div>
               </div>
-            </motion.div>
-          )
-        })}
-      </motion.div>
-    </div>
-  )
+            </div>
+          </motion.div>
+        )
+      })}
+    </motion.div>
+  </div>
+)
+
 }
