@@ -181,18 +181,17 @@ export const Menu = ({ setOpenMenu }: HeaderProps) => {
                             }
 
                             // Enlaces externos
-                            if (item.text === 'Instagram' || item.text === 'Tik Tok') {
+                            if (item.text === 'Instagram' || item.text === 'Tik Tok' || item.text === 'Facebook') {
                               return (
-                                <a
+                                <button
                                   key={index}
-                                  href={item.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={handleClose}
+                                  onClick={() => {
+                                    window.open(item.url_a, '_blank');
+                                  }}
                                   className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors font-medium"
                                 >
                                   {item.text}
-                                </a>
+                                </button>
                               );
                             }
 

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { FaInstagram, FaTiktok } from "react-icons/fa"
 import { FaWhatsapp } from "react-icons/fa"
+import { FaFacebook } from "react-icons/fa6"
 
 const NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER
 const MESSAGE = import.meta.env.VITE_WHATSAPP_MESSAGE
@@ -32,7 +33,7 @@ export const Contact = () => {
 
         {/* ---------------- RIGHT SIDE: SOCIALS ---------------- */}
         <motion.div
-          className="md:w-[50%] grid grid-cols-1 sm:grid-cols-3 gap-6"
+          className="md:w-[50%] grid grid-cols-2 sm:grid-cols-2 gap-6"
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
@@ -76,6 +77,20 @@ export const Contact = () => {
             <FaTiktok className="text-4xl mb-6" />
             <h3 className="text-2xl font-light uppercase tracking-wider">
               TikTok
+            </h3>
+          </motion.a>
+
+          {/*FACEBOOK */}
+          <motion.a
+            href="https://www.facebook.com/profile.php?id=61584793554249"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-primary/20 p-8 flex flex-col items-center justify-between hover:bg-primary/5 transition-all"
+            whileHover={{ y: -4 }}
+          >
+            <FaFacebook className="text-4xl mb-6" />
+            <h3 className="text-2xl font-light uppercase tracking-wider">
+              Facebook
             </h3>
           </motion.a>
         </motion.div>

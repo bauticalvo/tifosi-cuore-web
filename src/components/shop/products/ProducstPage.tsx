@@ -84,7 +84,7 @@ export const ProductsPage: React.FC = () => {
           {Object.keys(filters).length > 0 && (
             <>
               <span>/</span>
-              <span className="text-light font-medium">Filtrado</span>
+              <span className="text-light font-medium">{Object.keys(filters).join(', ')}</span>
             </>
           )}
         </nav>

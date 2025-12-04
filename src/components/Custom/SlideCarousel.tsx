@@ -57,12 +57,12 @@ return (
             "
           >
             <div
-              className="w-full h-full flex flex-col bg-background/80 border border-grey1/20  overflow-hidden group"
+              className="w-full h-full flex flex-col bg-background/80 border border-background/80  overflow-hidden group"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
               {/* 🟧 Contenedor de imagen - tamaño fijo */}
-              <div className="w-full h-[65%] flex items-center justify-center bg-background border-b border-grey1/20 p-4">
+              <div className="w-full h-[65%] flex items-center justify-center bg-radial-[at_50%_75%] from-primary/60 to-primary border-b border-background/80 p-4">
                 <img
                   src={
                     isHovered && secondImageUrl ? secondImageUrl : firstImageUrl

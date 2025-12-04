@@ -2,6 +2,8 @@ import { CategorySection } from '../components/Landing/CategorySection'
 import { ShopByVersion } from '../components/Landing/ShopByVersion'
 import { Section4 } from '../components/Landing/Section4'
 import { HeroSectionBloke } from '@/components/BlockCore/Landing/HeroSectionBloke'
+import { TeamsGrid } from '@/components/Landing/TeamsSection'
+import { CategoriesGrid } from '@/components/Landing/CategoriesGrid'
 
 export const Landing = () => {
   return (
@@ -9,8 +11,9 @@ export const Landing = () => {
       <HeroSectionBloke />
       <CategorySection />
       <Section4 />
+      <TeamsGrid />
       {/* <Storytelling /> */}
-      <ShopByVersion />
+      <CategoriesGrid />
     </div>
   )
 }

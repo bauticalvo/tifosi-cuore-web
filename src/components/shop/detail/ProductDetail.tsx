@@ -132,7 +132,7 @@ if (isLoading) {
         <div className="space-y-4">
           {/* Imagen principal */}
           <div 
-            className="bg-bg-images aspect-[3/3] flex items-center justify-center overflow-hidden cursor-zoom-in"
+            className="bg-radial-[at_50%_75%] from-primary/60 to-primary aspect-square flex items-center justify-center overflow-hidden cursor-zoom-in"
             onClick={() => setIsModalOpen(true)}
           >
             {product.images && product.images.length > 0 ? (
@@ -155,8 +155,8 @@ if (isLoading) {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`bg-bg-images  aspect-square overflow-hidden border-2 p-2 ${
-                      selectedImage === index ? 'border-primary' : 'border-transparent'
+                    className={`bg-linear-to-b from-primary/60 to-primary  aspect-square overflow-hidden border-2 p-2 ${
+                      selectedImage === index ? 'border-light' : 'border-transparent'
                     }`}
                   >
                     <img 

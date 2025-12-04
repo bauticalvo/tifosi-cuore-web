@@ -1,3 +1,8 @@
+const instagramUrl = import.meta.env.VITE_INSTAGRAM_URL;
+const tiktokUrl = import.meta.env.VITE_TIKTOK_URL;
+const facebookUrl = import.meta.env.VITE_FACEBOOK_URL;
+
+
 export const SimpleMenu = {
   Tienda: [
     { text: "Camisetas", url: "/shop?category=camiseta" },
@@ -30,8 +35,9 @@ export const SimpleMenu = {
     { text: "Wrexham", url: "/shop?team=690feb7ca6b38211af2eaa04", photo:"https://res.cloudinary.com/dbxqtrrfn/image/upload/v1762650189/teams/ielrl8wtzg95vakpeu15.png"},
   ],
   more: [
-    { text: "Instagram", url: "/faq" },
-    { text: "Tik Tok", url: "/faq" },
+    { text: "Instagram", url_a: instagramUrl },
+    { text: "Tik Tok", url_a: tiktokUrl },
+    { text: "Facebook", url_a: facebookUrl },
     { text: "|", url: "" },
     { text: "Faq", url: "/faq" },
     { text: "Contacto", url: "/contact" },

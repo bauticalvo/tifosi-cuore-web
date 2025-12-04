@@ -1,6 +1,6 @@
 import {motion } from 'framer-motion';
 
-export const ShopMenu = ({ rows }: { rows: { text: string; url: string }[] }) => {
+export const ShopMenu = ({ rows }: { rows: { text: string; url: string ; url_a?: string; photo?: string}[] }) => {
   return (
     <motion.div 
       className="w-full px-10 py-4 bg-primary border-t border-light/10 flex items-start"
@@ -17,13 +17,25 @@ export const ShopMenu = ({ rows }: { rows: { text: string; url: string }[] }) =>
                 <img src={row.photo} alt={row.text} className="w-10 h-10 mb-2"/>
               )
             }
+            {row?.url_a ? (
+              <button
+              key={row.text}
+              onClick={() => {
+                window.open(row.url_a, '_blank');
+              }}
+                className="text-light text-lg hover:text-tertiary transition-colors"
+              >
+                {row.text}
+              </button>
+            ) : (
             <a
               key={row.text}
               href={row.url}
               className="text-light text-lg hover:text-tertiary transition-colors"
               >
               {row.text}
-            </a>
+            </a>  
+            )}
           </div>
         ))}
       </div>
