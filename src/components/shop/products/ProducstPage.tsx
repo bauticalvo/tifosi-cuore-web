@@ -84,7 +84,7 @@ export const ProductsPage: React.FC = () => {
           {Object.keys(filters).length > 0 && (
             <>
               <span>/</span>
-              <span className="text-primary font-medium">Filtrado</span>
+              <span className="text-light font-medium">Filtrado</span>
             </>
           )}
         </nav>
@@ -98,7 +98,7 @@ export const ProductsPage: React.FC = () => {
               
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden px-4 py-2 border border-background rounded text-sm font-medium text-primary hover:bg-gray-50"
+                className="lg:hidden px-4 py-2 border border-background rounded text-sm font-medium text-light hover:bg-gray-50"
               >
                 Filtros
               </button>

@@ -28,10 +28,10 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading = 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {[...Array(8)].map((_, index) => (
           <div key={index} className="animate-pulse">
-            <div className="bg-gray-200 rounded-lg aspect-[3/3] mb-3"></div>
-            <div className="h-4 bg-gray-200 rounded mb-2"></div>
-            <div className="h-6 bg-gray-200 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2 mt-2"></div>
+            <div className="bg-gray-200 -lg aspect-[3/3] mb-3"></div>
+            <div className="h-4 bg-gray-200  mb-2"></div>
+            <div className="h-6 bg-gray-200  w-3/4"></div>
+            <div className="h-4 bg-gray-200  w-1/2 mt-2"></div>
           </div>
         ))}
       </div>
@@ -62,7 +62,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading = 
                 )}
                 
                 {hasDiscount && (
-                  <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                  <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 ">
                     -{product.discount}%
                   </div>
                 )}

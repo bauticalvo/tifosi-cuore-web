@@ -39,7 +39,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
   const hasActiveFilters = Object.keys(filters).length > 0
 
   return (
-    <div className="bg-light rounded-lg shadow-sm border p-6">
+    <div className="bg-light  shadow-sm  p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
@@ -68,7 +68,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   type="checkbox"
                   checked={filters.category === category.value}
                   onChange={(e) => updateFilter('category', e.target.checked ? category.value : undefined)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className=" border-gray-300 text-primary focus:ring-primary/90"
                 />
                 <span className="ml-2 text-sm text-gray-700">{category.label}</span>
               </label>
@@ -86,7 +86,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   type="checkbox"
                   checked={Array.isArray(filters.team) ? filters.team.includes(team._id) : filters.team === team._id}
                   onChange={() => toggleArrayFilter('team', team._id)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className=" border-gray-300 text-primary focus:ring-primary/90"
                 />
                 <span className="ml-2 text-sm text-gray-700">{team.name}</span>
               </label>
@@ -104,7 +104,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   type="checkbox"
                   checked={Array.isArray(filters.league) ? filters.league.includes(league._id) : filters.league === league._id}
                   onChange={() => toggleArrayFilter('league', league._id)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className=" border-gray-300 text-primary focus:ring-primary/90"
                 />
                 <span className="ml-2 text-sm text-gray-700">{league.name}</span>
               </label>
@@ -122,7 +122,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   type="checkbox"
                   checked={Array.isArray(filters.country) ? filters.country.includes(country._id) : filters.country === country._id}
                   onChange={() => toggleArrayFilter('country', country._id)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className=" border-gray-300 text-primary focus:ring-primary/90"
                 />
                 <span className="ml-2 text-sm text-gray-700">{country.name}</span>
               </label>
@@ -138,9 +138,9 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
               <button
                 key={color._id}
                 onClick={() => toggleArrayFilter('color', color._id)}
-                className={`w-8 h-8 rounded-full border-2 ${
+                className={`w-8 h-8 -full border-2 ${
                   Array.isArray(filters.colors) ? filters.colors.includes(color._id) : filters.colors === color._id
-                    ? 'border-blue-500 ring-2 ring-blue-200'
+                    ? 'border-primary/90 ring-2 ring-blue-200'
                     : 'border-gray-300'
                 }`}
                 style={{ backgroundColor: color.hex_code }}
@@ -158,9 +158,9 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
               <button
                 key={size}
                 onClick={() => toggleArrayFilter('size', size)}
-                className={`px-3 py-1 text-sm border rounded ${
+                className={`px-3 py-1 text-sm border  ${
                   Array.isArray(filters.size) && filters.size.includes(size)
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
+                    ? 'border-primary/90 bg-blue-50 text-blue-700'
                     : 'border-gray-300 text-gray-700 hover:border-gray-400'
                 }`}
               >
@@ -180,7 +180,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   type="checkbox"
                   checked={filters.season === season}
                   onChange={(e) => updateFilter('season', e.target.checked ? season : undefined)}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className=" border-gray-300 text-primary focus:ring-primary/90"
                 />
                 <span className="ml-2 text-sm text-gray-700">{season}</span>
               </label>
@@ -198,7 +198,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                 placeholder="Mín"
                 value={filters.minPrice || ''}
                 onChange={(e) => updateFilter('minPrice', e.target.value ? Number(e.target.value) : undefined)}
-                className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
+                className="w-20 px-2 py-1 border border-gray-300  text-sm"
               />
               <span className="text-gray-500">-</span>
               <input
@@ -206,7 +206,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                 placeholder="Máx"
                 value={filters.maxPrice || ''}
                 onChange={(e) => updateFilter('maxPrice', e.target.value ? Number(e.target.value) : undefined)}
-                className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
+                className="w-20 px-2 py-1 border border-gray-300  text-sm"
               />
             </div>
           </div>

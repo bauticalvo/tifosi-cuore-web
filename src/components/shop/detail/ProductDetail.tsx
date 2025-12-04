@@ -27,7 +27,7 @@ if (isLoading) {
         <p>Error: {(error as Error).message}</p>
         <button 
           onClick={() => window.location.reload()}
-          className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary"
+          className="mt-4 px-4 py-2 bg-primary text-white  hover:bg-primary"
         >
           Reintentar
         </button>
@@ -41,7 +41,7 @@ if (isLoading) {
         <p>Producto no encontrado</p>
         <Link 
           to="/shop" 
-          className="mt-4 inline-block px-4 py-2 bg-primary text-white rounded hover:bg-primary"
+          className="mt-4 inline-block px-4 py-2 bg-primary text-white  hover:bg-primary"
         >
           Volver a productos
         </Link>
@@ -132,7 +132,7 @@ if (isLoading) {
         <div className="space-y-4">
           {/* Imagen principal */}
           <div 
-            className="bg-bg-images rounded-lg aspect-[3/3] flex items-center justify-center overflow-hidden cursor-zoom-in"
+            className="bg-bg-images aspect-[3/3] flex items-center justify-center overflow-hidden cursor-zoom-in"
             onClick={() => setIsModalOpen(true)}
           >
             {product.images && product.images.length > 0 ? (
@@ -155,7 +155,7 @@ if (isLoading) {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`bg-bg-images rounded aspect-square overflow-hidden border-2 p-2 ${
+                    className={`bg-bg-images  aspect-square overflow-hidden border-2 p-2 ${
                       selectedImage === index ? 'border-primary' : 'border-transparent'
                     }`}
                   >
@@ -221,7 +221,7 @@ if (isLoading) {
                   <span className="text-lg text-text-surface line-through">
                     ${product.price.toFixed(2)}
                   </span>
-                  <span className="bg-red-500 text-white px-2 py-1 text-sm rounded">
+                  <span className="bg-red-500 text-white px-2 py-1 text-sm ">
                     -{product.discount}%
                   </span>
                 </>
@@ -241,7 +241,7 @@ if (isLoading) {
                   return (
                     <div
                       key={color._id || color}
-                      className="w-8 h-8 rounded-full border border-black/20"
+                      className="w-8 h-8 l border border-black/20"
                       style={{ 
                         backgroundColor: color.hex_code || '#ccc',
                       }}
@@ -271,7 +271,7 @@ if (isLoading) {
                   key={variant.size}
                   onClick={() => handleSizeSelect(variant.size)}
                   disabled={variant.stock === 0}
-                  className={`px-4 py-2 border rounded-md text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 border text-sm font-medium transition-colors ${
                     selectedSize === variant.size
                       ? 'border-primary bg-blue-50 text-primary'
                       : variant.stock === 0
@@ -289,7 +289,7 @@ if (isLoading) {
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <label className="text-sm font-medium text-tertiary-alt">Cantidad</label>
-              <div className="flex items-center border border-tertiary rounded">
+              <div className="flex items-center border border-tertiary ">
                 <button
                   onClick={() => handleQuantityChange(quantity - 1)}
                   className="px-3 py-2 hover:bg-tertiary hover:text-text transition-colors disabled:bg-none disabled:bg-tertiary-alt/50"
@@ -311,7 +311,7 @@ if (isLoading) {
             <button
               onClick={handleAddToCart}
               disabled={!selectedSize || (selectedVariant && selectedVariant.stock === 0)}
-              className="w-full bg-primary border border-tertiary-alt text-tertiary-alt py-3 px-6 rounded-md font-medium hover:bg-primary disabled:bg-tertiary/50 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-primary border border-tertiary-alt text-tertiary-alt py-3 px-6 font-medium hover:bg-primary disabled:bg-tertiary/50 disabled:cursor-not-allowed transition-colors"
             >
               {!selectedSize 
                 ? 'SELECCIONA UNA TALLA' 
