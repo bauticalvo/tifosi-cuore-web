@@ -3,7 +3,6 @@ import { useGetTeams } from "@/hooks/useGetTeams";
 export const TeamsGrid = () => {
 
     const { data:teams, isPending, isError, error } = useGetTeams()
-    console.log(teams);
     
   return (
     <section className="w-full bg-primary py-40">

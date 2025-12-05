@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useParams, Link } from 'react-router'
 import { useProductBySlug } from '@/hooks/useGetProducts'
-import type { ProductVariant } from '@/types/api/shop'
+import type { ProductVariant } from '@/types/api/products'
 import { ImageModal } from './ImageModal'
 import { LoadingSqueleton } from './LoadingSqueleton'
 import { RelatedProducts } from './RelatedProducts'
+import { useCartStore } from "@/store/useCartStore"
+import toast from 'react-hot-toast'
+
 
 export const ProductDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>()
@@ -14,6 +17,10 @@ export const ProductDetail: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(1)
   const [selectedImage, setSelectedImage] = useState<number>(0)
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { addToCart, items , removeFromCart} = useCartStore()
+
+  console.log(items);
+  
 // Loading state
 if (isLoading) {
   return (
@@ -56,24 +63,31 @@ if (isLoading) {
     setQuantity(1)
   }
 
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert('Por favor selecciona una talla')
-      return
-    }
-
-    if (selectedVariant && selectedVariant.stock === 0) {
-      alert('Esta talla no está disponible')
-      return
-    }
-
-    console.log('Agregar al carrito:', {
-      product: product._id,
-      size: selectedSize,
-      variant: selectedVariant,
-      quantity
-    })
+const handleAddToCart = () => {
+  if (!selectedSize) {
+    toast.error("Selecciona una talla")
+    return
   }
+
+  if (selectedVariant && selectedVariant.stock === 0) {
+    toast.error("Esta talla no tiene stock")
+    return
+  }
+
+  if(items.some((item) => item.product._id === product._id && item.size === selectedSize)) {
+    removeFromCart(product._id, selectedSize)
+    toast.success("Producto eliminado del carrito")
+    return
+  }
+
+  addToCart({
+    product,
+    size: selectedSize,
+    quantity,
+  })
+
+  toast.success("Producto agregado al carrito")
+}
 
   const handleQuantityChange = (newQuantity: number) => {
     const maxQuantity = selectedVariant ? selectedVariant.stock : 1
@@ -132,7 +146,7 @@ if (isLoading) {
         <div className="space-y-4">
           {/* Imagen principal */}
           <div 
-            className="bg-radial-[at_50%_75%] from-primary/60 to-primary aspect-square flex items-center justify-center overflow-hidden cursor-zoom-in"
+            className="bg-radial-[at_50%_75%] from-background/30 to-primary border border-background aspect-square flex items-center justify-center overflow-hidden cursor-zoom-in"
             onClick={() => setIsModalOpen(true)}
           >
             {product.images && product.images.length > 0 ? (
@@ -155,7 +169,7 @@ if (isLoading) {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`bg-linear-to-b from-primary/60 to-primary  aspect-square overflow-hidden border-2 p-2 ${
+                    className={`bg-radial-[at_50%_75%] from-background/30 to-primary  aspect-square overflow-hidden border-2 p-2 ${
                       selectedImage === index ? 'border-light' : 'border-transparent'
                     }`}
                   >
@@ -316,7 +330,9 @@ if (isLoading) {
               {!selectedSize 
                 ? 'SELECCIONA UNA TALLA' 
                 : selectedVariant && selectedVariant.stock === 0
-                ? 'SIN STOCK'
+                ? 'SIN STOCK':
+                items.some((item) => item.product._id === product._id && item.size === selectedSize)
+                ? 'ELIMINAR DEL CARRITO'
                 : 'AGREGAR AL CARRITO'
               }
             </button>

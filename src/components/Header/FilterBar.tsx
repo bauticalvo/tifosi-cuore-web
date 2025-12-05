@@ -3,6 +3,8 @@ import { ShopMenu } from './Filter/ShopMenu'
 import { SimpleMenu } from './Filter/ShopMenuData'
 import { FaCartShopping } from "react-icons/fa6";
 import { Link } from 'react-router';
+import { CartSidebar } from '../cart/CartSidebar';
+import { useCartStore } from '@/store/useCartStore';
 
 interface HeaderProps {
   setOpenMenu: (open: boolean) => void
@@ -12,6 +14,8 @@ export const FilterBar = ( { setOpenMenu }: HeaderProps) => {
   const [isHovered, setIsHovered] = useState(0)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const setOpen = useCartStore((s) => s.setOpen);
+  const open = useCartStore((s) => s.open);
 
   // Limpiar timeout al desmontar el componente
   useEffect(() => {
@@ -60,11 +64,15 @@ export const FilterBar = ( { setOpenMenu }: HeaderProps) => {
       <div
         onMouseEnter={() => handleMouseEnterButton(index)}
         onMouseLeave={handleMouseLeaveButton}
-        className="text-xl 2xl:text-2xl font-light group relative flex items-center h-full px-4 py-2 transition-colors hover:text-tertiary"
+        className="text-xl 2xl:text-2xl font-light group relative flex items-center h-full px-4 py-2 transition-colors hover:text-tertiary "
       >
         {url === 'menu' ? (
           <button onClick={() => setOpenMenu(true)} className="group relative cursor-default">{text}</button>
-        ) : (
+        ) : url === 'cart' ? (<div 
+          onClick={() => setOpen(!open)}
+          className='flex space-x-2 items-center ' >
+          {text} <FaCartShopping className="inline-block ml-2 text-lg" />
+        </div>) : (
           <Link to={url || '#'}>
             <p className="group relative">{text}</p>
           </Link>
@@ -86,7 +94,7 @@ export const FilterBar = ( { setOpenMenu }: HeaderProps) => {
         <CustomButton text="MENU" index={6} url='menu'/>
       </section>
       <section>
-        <CustomButton text="" index={5} />
+        <CustomButton text="Carrito" url="cart" index={5} />
       </section>
 
       {/* Menú desplegable */}

@@ -12,6 +12,8 @@ import { Menu } from './components/Header/Menu/Menu'
 import { Error404 } from './pages/Error404'
 import FaqPage from './pages/Faq'
 import { Contact } from './pages/Contact'
+import CartPage from './components/cart/CartPage'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
@@ -31,11 +33,13 @@ function App() {
           <Route path="/blokecore" element={<BlokeCore />} />
           <Route path="/shop" element={<ProductsPage />}/>
           <Route path='/shop/:slug' element={<ProductDetail />} />
+          <Route path="/cart" element={<CartPage />}/>
           <Route path="/faq" element={<FaqPage />}/>
           <Route path="/contact" element={<Contact />}/>
           <Route path="/*" element={<Error404 />}/>
         </Routes>
         <Footer />
+      <Toaster />
       </div>
  
   )

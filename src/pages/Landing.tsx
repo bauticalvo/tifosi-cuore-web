@@ -4,8 +4,12 @@ import { Section4 } from '../components/Landing/Section4'
 import { HeroSectionBloke } from '@/components/BlockCore/Landing/HeroSectionBloke'
 import { TeamsGrid } from '@/components/Landing/TeamsSection'
 import { CategoriesGrid } from '@/components/Landing/CategoriesGrid'
+import { useGeneralStore } from '@/store/useGeneralStore'
+import { Loader } from '@/components/Loader/Loader'
 
 export const Landing = () => {
+    const { isImageLoaded } = useGeneralStore();
+
   return (
     <div className="bg-primary mt-[10vh]  w-screen flex flex-col items-center overflow-x-scroll no-scrollbar">
       <HeroSectionBloke />
@@ -14,6 +18,9 @@ export const Landing = () => {
       <TeamsGrid />
       {/* <Storytelling /> */}
       <CategoriesGrid />
+      {
+        !isImageLoaded && <Loader />
+      }
     </div>
   )
 }

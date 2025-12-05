@@ -3,6 +3,7 @@ import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useSimpleScrollOpacity } from '../../../hooks/useScrollOpacity'
+import {useGeneralStore} from '@/store/useGeneralStore'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -10,6 +11,7 @@ export const HeroSectionBloke = () => {
   const textRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<number>(0)
   const opacity = useSimpleScrollOpacity(50)
+  const { setIsImageLoaded } = useGeneralStore();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -53,6 +55,8 @@ export const HeroSectionBloke = () => {
     <div
       className="bg-primary relative h-[40vh] md:h-[60vh]  xl:h-[800px] 2xl:h-[70vh] w-full flex items-center justify-center
      bg-[url('/images/blokecore/hero-bg.png')] bg-no-repeat bg-top bg-cover overflow-hidden"
+     onLoad={() => setIsImageLoaded(true)}
+     
     >
       {/* Imagen con parallax más lento */}
       <img

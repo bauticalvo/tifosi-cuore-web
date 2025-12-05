@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import FilterBar from './FilterBar'
 import { useNavigate } from 'react-router'
+import { CartSidebar } from '../cart/CartSidebar'
 
 interface HeaderProps {
   setOpenMenu: (open: boolean) => void
@@ -42,9 +43,11 @@ export const Header = ({ setOpenMenu }: HeaderProps) => {
       <section ref={logoSection} className="w-full h-[7vh] py-1 px-8">
           <img onClick={() => navigate("/")} src="/logos/logo_acortado.svg" alt="tifosi_logo" className="h-full w-auto" />
       </section>
-      <section className="w-full h-[4vh] border-t border-light">
+      <section className="w-full h-[4vh] border-t border-light relative">
         <FilterBar setOpenMenu={setOpenMenu} />
+          <CartSidebar />
       </section>
+
     </div>
   )
 }
