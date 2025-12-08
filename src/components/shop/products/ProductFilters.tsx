@@ -130,6 +130,42 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           </div>
         </div>
 
+        {/* Calidad */}
+        {/* <div>
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Calidad</h3>
+          <div className="space-y-2">
+            {filterOptions.qualities.map(quality => (
+              <label key={quality.value} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={filters.quality === quality.value}
+                  onChange={(e) => updateFilter('quality', e.target.checked ? quality.value : undefined)}
+                  className=" border-gray-300 text-primary focus:ring-primary/90"
+                />
+                <span className="ml-2 text-sm text-gray-700">{quality.label}</span>
+              </label>
+            ))}
+          </div>
+        </div> */}
+
+        {/* Estilo */}
+        {/* <div>
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Estilo</h3>
+          <div className="space-y-2">
+            {filterOptions.styles.map(style => (
+              <label key={style.value} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={filters.style === style.value}
+                  onChange={(e) => updateFilter('style', e.target.checked ? style.value : undefined)}
+                  className=" border-gray-300 text-primary focus:ring-primary/90"
+                />
+                <span className="ml-2 text-sm text-gray-700">{style.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+         */}
         {/* Colores */}
         {/* <div>
           <h3 className="text-sm font-medium text-gray-900 mb-3">Color</h3>
@@ -151,7 +187,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         </div> */}
 
         {/* Tallas */}
-        <div>
+        {/* <div>
           <h3 className="text-sm font-medium text-gray-900 mb-3">Talla</h3>
           <div className="flex flex-wrap gap-2">
             {filterOptions.sizes.map(size => (
@@ -168,25 +204,32 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Temporada */}
-        <div>
+        {/* <div>
           <h3 className="text-sm font-medium text-gray-900 mb-3">Temporada</h3>
           <div className="space-y-2">
-            {filterOptions.seasons.map(season => (
-              <label key={season} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.season === season}
-                  onChange={(e) => updateFilter('season', e.target.checked ? season : undefined)}
-                  className=" border-gray-300 text-primary focus:ring-primary/90"
-                />
-                <span className="ml-2 text-sm text-gray-700">{season}</span>
-              </label>
-            ))}
+            {filterOptions.seasons.map(season => {
+              const selected = filters.season === season;
+
+              return (
+                <label key={season} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={selected}
+                    onChange={(e) =>
+                      updateFilter("season", e.target.checked ? season : undefined)
+                    }
+                    className="border-gray-300 text-primary focus:ring-primary/90"
+                  />
+                  <span className="ml-2 text-sm text-gray-700">{season}</span>
+                </label>
+              );
+            })}
           </div>
-        </div>
+        </div> */}
+
 
         {/* Precio */}
         {/* <div>

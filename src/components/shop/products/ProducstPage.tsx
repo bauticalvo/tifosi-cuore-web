@@ -67,7 +67,7 @@ export const ProductsPage: React.FC = () => {
       // Convertir 'shirts' a un filtro de categoría si es necesario
       handleFiltersChange({
         ...filters,
-        category: 'shirts' // O lo que corresponda en tu sistema
+        category: 'camiseta' // O lo que corresponda en tu sistema
       })
     }
   }, [])

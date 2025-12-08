@@ -72,6 +72,8 @@ export interface Product {
   name: string;
   slug: string;
   category: 'camiseta' | 'short' | 'buzo';
+  quality: 'original' | 'replica';
+  style: 'retro' | 'actual' | 'jugador';
   description?: string;
   price: number;
   discount?: number;
@@ -97,6 +99,8 @@ export interface ProductFormData {
   name: string;
   slug?: string;
   category: 'camiseta' | 'short' | 'buzo';
+  quality?: 'original' | 'replica';
+  style?: 'retro' | 'actual' | 'jugador';
   description?: string;
   price: number;
   discount?: number;
@@ -117,6 +121,8 @@ export interface ProductFormData {
 
 export interface ProductFilters {
   category?: 'camiseta' | 'short' | 'buzo' | "conjuntos";
+  quality?: 'original' | 'replica';
+  style?: 'retro' | 'actual' | 'jugador';
   team?: string;
   league?: string;
   country?: string;

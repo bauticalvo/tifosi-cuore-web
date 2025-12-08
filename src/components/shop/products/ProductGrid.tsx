@@ -40,6 +40,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, isLoading = 
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {
+        products.length === 0 && (
+          <p className="text-center col-span-full text-background ">
+            No se encontraron productos.
+          </p>
+        )
+      }
       {products.map((product) => {
         const discountedPrice = getDiscountedPrice(product)
         const hasDiscount = product.discount && product.discount > 0

@@ -199,13 +199,16 @@ const handleAddToCart = () => {
         {/* Información del producto */}
         <div className="space-y-6">
           {/* Equipo y Liga */}
-          {(product.team || product.league) && (
-            <div className="text-sm font-regular text-text-surface uppercase">
-              {product.team && (product.team as any).name}
-              {product.team && product.league && ' • '}
-              {product.league && (product.league as any).name}
-            </div>
-          )}
+          <section className='flex w-full justify-between items-center text-sm font-regular text-text-surface uppercase'>
+            {(product.team || product.league) && (
+              <div className="">
+                {product.team && (product.team as any).name}
+                {product.team && product.league && ' • '}
+                {product.league && (product.league as any).name}
+              </div>
+            )}
+            <span className='px-2 py-1 bg-accent text-lg'>{product.quality}</span>
+          </section>
 
           {/* Nombre del producto */}
           <h1 className="text-3xl font-medium text-tertiary">
